@@ -18,9 +18,15 @@ return new class extends Migration
             $table->integer('quantite');
 
             // Clés étrangères
-            $table->foreign('idReservation')->references('idReservation')->on('reservationss');
+            $table->foreign('idReservation')->references('idReservation')->on('reservations');
             $table->foreign('idGoodie')->references('idGoodie')->on('goodies');
 
+            // Clé primaire
+            $table->primary(['idReservation', 'idGoodie']);
+
+            // Empêcher les réservations en double
+            $table->unique(['idReservation', 'idGoodie']);
+            
         });
     }
 

@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('goodies', function (Blueprint $table) {
             $table->id('idGoodie');
-            $table->string('name');
-            $table->integer('quantity');
+            $table->string('nom');
+            $table->integer('quantite');
             $table->string('description');
             $table->double('coutUnitaire')->nullable();
         });
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('goodies');
     }
 };

@@ -12,15 +12,16 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('evenements', function (Blueprint $table) {
-            $table->unsignedBigInteger('idEvt');
-            $table->string('nomEvt');
-            $table->datetime('date');
-            $table->integer('prixEntree');
-            $table->integer('capaciteMax');
+            $table->unsignedBigInteger('idEvenement');
+            $table->string('nom');
+            $table->string('lieu');
+            $table->datetime('dateHeure');
+            $table->integer('prix');
+            $table->integer('capacite');
             $table->string('theme');            
 
             // Clé primaire
-            $table->primary('idEvt');
+            $table->primary('idEvenement');
         });
     }
 
@@ -29,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('evenements');
     }
 };

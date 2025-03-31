@@ -14,13 +14,13 @@ return new class extends Migration
         Schema::create('reservations', function (Blueprint $table) {
             $table->id('idReservation');
             $table->unsignedBigInteger('idEtudiant');
-            $table->unsignedBigInteger('idEvt');
+            $table->unsignedBigInteger('idEvenement');
             $table->date('dateReservation');
             $table->enum('statut', ['Confirmée', 'En attente', 'Annulée'])->default('En attente');
 
             // Clés étrangères
             $table->foreign('idEtudiant')->references('idEtudiant')->on('etudiants')->onDelete('cascade');
-            $table->foreign('idEvt')->references('idEvt')->on('evenements')->onDelete('cascade');
+            $table->foreign('idEvenement')->references('idEvenement')->on('evenements')->onDelete('cascade');
 
             // Empêcher les réservations en double
             $table->unique(['idEtudiant', 'idEvt']);
@@ -32,6 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('reservations');
     }
 };
