@@ -1,1 +1,55 @@
-<p>home works!</p>
+<div class="container mt-4">
+    <h2 class="mb-4">📊 Tableau de bord</h2>
+
+    <div class="row">
+        <!-- Prochain événement -->
+        <div class="col-md-4">
+            <mat-card class="dashboard-card">
+                <mat-card-title>🎉 Prochain événement</mat-card-title>
+                <mat-card-content>
+                    <p><strong>{{ prochainEvenement.nom }}</strong></p>
+                    <p>Date : {{ prochainEvenement.date }}</p>
+                    <p>Lieu : {{ prochainEvenement.lieu }}</p>
+                    <p>Prix : {{ prochainEvenement.prix }} €</p>
+                </mat-card-content>
+                <mat-card-actions>
+                    <button mat-button color="primary">Voir détails</button>
+                </mat-card-actions>
+            </mat-card>
+        </div>
+
+        <!-- Dernières réservations -->
+        <div class="col-md-4">
+            <mat-card class="dashboard-card">
+                <mat-card-title>🎟 Dernières réservations</mat-card-title>
+                <mat-card-content>
+                    <ul>
+                        <li *ngFor="let res of dernieresReservations">
+                            {{ res.etudiant }} - <strong>{{ res.statut }}</strong> ({{ res.soiree }})
+                        </li>
+                    </ul>
+                </mat-card-content>
+                <mat-card-actions>
+                    <button mat-button color="primary">Gérer</button>
+                </mat-card-actions>
+            </mat-card>
+        </div>
+
+        <!-- Stock Goodies -->
+        <div class="col-md-4">
+            <mat-card class="dashboard-card">
+                <mat-card-title>🎁 État du stock</mat-card-title>
+                <mat-card-content>
+                    <ul>
+                        <li *ngFor="let goodie of stockGoodies">
+                            {{ goodie.nom }} : {{ goodie.quantite }} restants
+                        </li>
+                    </ul>
+                </mat-card-content>
+                <mat-card-actions>
+                    <button mat-button color="primary">Voir stock</button>
+                </mat-card-actions>
+            </mat-card>
+        </div>
+    </div>
+</div>

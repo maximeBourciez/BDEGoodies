@@ -8,7 +8,7 @@ import { Evenement } from '../models/evenement.model';
 })
 export class EtudiantsService {
   // Attributs 
-  private readonly apiUrl = 'http://localhost:8000/etudiants';
+  private readonly apiUrl = 'http://localhost:8000/api/etudiants';
   private readonly http: HttpClient = inject(HttpClient); 
 
   // Constructeur
