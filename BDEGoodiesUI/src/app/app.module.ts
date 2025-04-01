@@ -17,6 +17,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatCardModule } from '@angular/material/card';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { EvenementComponent } from './evenement/evenement.component';
+import { ListEvenementsComponent } from './pages/list-evenements/list-evenements.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +27,9 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     AppComponent,
     HeaderComponent,
     FooterComponent,
-    HomeComponent
+    HomeComponent,
+    EvenementComponent,
+    ListEvenementsComponent
   ],
   imports: [
     
@@ -41,6 +46,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     MatMenuModule,
     MatCardModule,
     DragDropModule,
+    MatGridListModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

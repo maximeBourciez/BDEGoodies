@@ -1,0 +1,13 @@
+<div class="container">
+    <h1>Liste des événements</h1>
+
+    <mat-grid-list [cols]="gridCols" rowHeight="1:1" gutterSize="20px">
+        <mat-grid-tile *ngFor="let event of events; trackBy: trackEvent" class="grid-item">
+            <app-evenement [event]="event"></app-evenement>
+        </mat-grid-tile>
+    </mat-grid-list>
+
+    <div class="text-center">
+        <button mat-raised-button color="primary" (click)="loadMore()">Charger plus</button>
+    </div>
+</div>

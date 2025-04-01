@@ -1,0 +1,16 @@
+<mat-card class="evenement-card">
+    <mat-card-header>
+        <mat-card-title>{{ event.nom }}</mat-card-title>
+        <mat-card-subtitle>{{ event.date ? (event.date | date:'shortDate') : 'Date non disponible' }} - {{ event.lieu }}</mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+        <p class="theme">Thème : {{ event.theme }}</p>
+        <p class="prix">{{ event.prix | currency:'EUR' }}</p>
+        <p>Places disponibles : {{ event.capacite }}</p>
+    </mat-card-content>
+
+    <mat-card-actions>
+        <button mat-raised-button color="primary">Gérer</button>
+    </mat-card-actions>
+</mat-card>

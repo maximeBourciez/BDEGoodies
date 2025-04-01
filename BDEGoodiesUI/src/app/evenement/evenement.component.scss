@@ -1,0 +1,62 @@
+.evenement-card {
+    max-width: 380px;
+    margin: 15px auto;
+    text-align: center;
+    border-radius: 12px;
+    background: #fff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+
+    &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    mat-card-header {
+        background: linear-gradient(135deg, #0077ff, #00c2ff);
+        color: white;
+        border-top-left-radius: 12px;
+        border-top-right-radius: 12px;
+        padding: 16px;
+    }
+
+    mat-card-title {
+        font-size: 1.4rem;
+        font-weight: bold;
+    }
+
+    mat-card-subtitle {
+        font-size: 0.9rem;
+        opacity: 0.8;
+    }
+
+    mat-card-content {
+        padding: 20px;
+        
+        .theme {
+            font-weight: bold;
+            color: #ff5722;
+            font-size: 1rem;
+        }
+
+        .prix {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #28a745;
+            margin: 8px 0;
+        }
+    }
+
+    mat-card-actions {
+        display: flex;
+        justify-content: center;
+        padding: 10px 20px;
+        border-top: 1px solid rgba(0, 0, 0, 0.1);
+        
+        button {
+            width: 100%;
+            font-weight: bold;
+            border-radius: 8px;
+        }
+    }
+}

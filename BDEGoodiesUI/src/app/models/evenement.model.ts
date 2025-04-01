@@ -13,7 +13,7 @@ export class Evenement{
         this.id = id;
         this.nom = nom;
         this.lieu = lieu;
-        this.date = date;
+        this.date = new Date(date);
         this.prix = prix;
         this.capacite = capacite;
         this.theme = theme;
