@@ -23,7 +23,7 @@ return new class extends Migration
             $table->foreign('idEvenement')->references('idEvenement')->on('evenements')->onDelete('cascade');
 
             // Empêcher les réservations en double
-            $table->unique(['idEtudiant', 'idEvt']);
+            $table->unique(['idEtudiant', 'idEvenement']);
         });
     }
 
