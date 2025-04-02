@@ -75,14 +75,15 @@ export class AddReservationComponent {
     this.form = this.fb.group({
       eventId: ['', Validators.required],
       studentId: ['', Validators.required],
-      statut: ['', Validators.required],
+      statut: [StatutReservation.EnAttente, Validators.required],
       goodieId: [''],
-      quantity: [1, [Validators.min(1), Validators.required]]
+      quantity: [1, [Validators.min(1)]]
     });
   }
 
   addGoodie(): void {
     if (this.form.get('goodieId')?.invalid || this.form.get('quantity')?.invalid) {
+      this.snackBar.open('Veuillez sélectionner un goodie et une quantité valide', 'Fermer', {duration: 2000});
       return;
     }
 
@@ -102,10 +103,13 @@ export class AddReservationComponent {
   }
 
   onSubmit(): void {
-    if (this.form.invalid || this.selectedGoodies.length === 0) {
-      this.snackBar.open('Veuillez remplir tous les champs requis et ajouter au moins un goodie', 'Fermer', { duration: 3000 });
-      return;
-    }
+    if (this.form.get('eventId')?.invalid || 
+      this.form.get('studentId')?.invalid || 
+      this.form.get('statut')?.invalid) {
+    this.markAllAsTouched();
+    return;
+  }
+
 
     const reservationData: Reservation = {
       idReservation: 0,
@@ -132,5 +136,11 @@ export class AddReservationComponent {
 
   private showError(message: string): void {
     this.snackBar.open(message, 'Fermer', { duration: 3000 });
+  }
+
+  private markAllAsTouched(): void {
+    Object.keys(this.form.controls).forEach(key => {
+      this.form.get(key)?.markAsTouched();
+    });
   }
 }

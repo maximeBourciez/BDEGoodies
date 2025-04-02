@@ -33,14 +33,14 @@ class ReservationsController extends Controller
     }
 
     // Méthode pour créer une nouvelle réservation
-    public function create(Request $request)
+    public function store(Request $request)
     {
         // Valider les données de la requête
         $validatedData = $request->validate([
             'idEtudiant' => 'required|integer|exists:etudiants,idEtudiant',
             'idEvenement' => 'required|integer|exists:evenements,idEvenement',
-            'idGoodie' => 'required|integer|exists:goodies,idGoodie',
-            'quantite' => 'required|integer|min:1',
+            'dateReservation' => 'required|date',
+            'statut' => 'required|string',
         ]);
 
         // Créer une nouvelle réservation

@@ -53,7 +53,11 @@
                     </div>
                     <div class="info-item">
                         <mat-icon>confirmation_number</mat-icon>
-                        <span><strong>Places restantes :</strong> {{ event.capacite }}</span>
+                        <span><strong>Places restantes :</strong> {{ event.capacite - event.inscrits.length }}</span>
+                    </div>
+                    <div class="info-item">
+                        <mat-icon>confirmation_number</mat-icon>
+                        <span><strong>Nombre d'inscrits :</strong> {{ event.inscrits.length }}</span>
                     </div>
                 </div>
             </div>
@@ -68,9 +72,10 @@
             <div class="inscrits-section" *ngIf="event.inscrits && event.inscrits.length > 0">
                 <div class="table-header">
                     <h2 class="title">Liste des participants</h2>
-                    <mat-button color="primary" [routerLink]="'/event/' + event.idEvenement + '/addetudiant'">
-                        Gérer les inscriptions
-                    </mat-button>
+                    <button mat-icon-button class="round-button"
+                        [routerLink]="'/event/' + event.idEvenement + '/addetudiant'" aria-label="Ajouter étudiant">
+                        <mat-icon>add</mat-icon>
+                    </button>
                 </div>
 
 

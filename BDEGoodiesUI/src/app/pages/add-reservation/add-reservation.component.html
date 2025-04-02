@@ -32,8 +32,8 @@
         <mat-form-field appearance="fill">
             <mat-label>Statut</mat-label>
             <mat-select formControlName="statut" required>
-                <mat-option *ngFor="let statut of statuts" value="statut">
-                    {{  statut }}
+                <mat-option *ngFor="let statut of statuts" [value]="statut">
+                    {{ statut }}
                 </mat-option>
             </mat-select>
             <mat-error *ngIf="form.get('statut')?.hasError('required')">
