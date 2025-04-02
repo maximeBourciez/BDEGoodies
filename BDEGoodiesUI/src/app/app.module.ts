@@ -3,12 +3,15 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { ReactiveFormsModule } from '@angular/forms';
 
 // Composants 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { HomeComponent } from './home/home.component';
+import { AddReservationComponent } from './pages/add-reservation/add-reservation.component';
+
 
 // ANgular Material
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -25,6 +28,10 @@ import { ListGoodiesComponent } from './pages/list-goodies/list-goodies.componen
 import { MatTableModule } from '@angular/material/table';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatChipListbox } from '@angular/material/chips';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatListModule } from '@angular/material/list';
+import { MatSelectModule } from '@angular/material/select';
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
   declarations: [
@@ -36,7 +43,8 @@ import { MatChipListbox } from '@angular/material/chips';
     EvenementComponent,
     ListEvenementsComponent,
     GoodieComponent,
-    ListGoodiesComponent
+    ListGoodiesComponent,
+    AddReservationComponent
   ],
   imports: [
     
@@ -45,6 +53,7 @@ import { MatChipListbox } from '@angular/material/chips';
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    ReactiveFormsModule,
 
     // Angular Material
     MatToolbarModule,
@@ -57,6 +66,10 @@ import { MatChipListbox } from '@angular/material/chips';
     MatTableModule,
     MatChipsModule,
     MatChipListbox,
+    MatSnackBarModule,
+    MatListModule,
+    MatSelectModule,
+    MatInputModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

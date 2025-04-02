@@ -1,0 +1,75 @@
+<div class="reservation-container">
+    <h2 class="title">Créer une nouvelle réservation</h2>
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <!-- Sélection d'événement -->
+        <mat-form-field appearance="fill">
+            <mat-label>Événement</mat-label>
+            <mat-select formControlName="eventId" required>
+                <mat-option *ngFor="let event of events" [value]="event.idEvenement">
+                    {{event.nom}} - {{event.dateHeure | date:'shortDate'}}
+                </mat-option>
+            </mat-select>
+            <mat-error *ngIf="form.get('eventId')?.hasError('required')">
+                Ce champ est obligatoire
+            </mat-error>
+        </mat-form-field>
+
+        <!-- Sélection d'étudiant -->
+        <mat-form-field appearance="fill">
+            <mat-label>Étudiant</mat-label>
+            <mat-select formControlName="studentId" required>
+                <mat-option *ngFor="let student of students" [value]="student.idEtudiant">
+                    {{student.nom}} ({{student.mail}})
+                </mat-option>
+            </mat-select>
+            <mat-error *ngIf="form.get('studentId')?.hasError('required')">
+                Ce champ est obligatoire
+            </mat-error>
+        </mat-form-field>
+
+        <!-- Ajout de goodies -->
+        <div class="goodies-section">
+            <h3>Goodies</h3>
+
+            <div class="goodie-add">
+                <mat-form-field appearance="fill">
+                    <mat-label>Goodie</mat-label>
+                    <mat-select formControlName="goodieId">
+                        <mat-option *ngFor="let goodie of goodies" [value]="goodie.idGoodie">
+                            {{goodie.nom}} ({{goodie.coutUnitaire | currency:'EUR'}})
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field appearance="fill" class="quantity-field">
+                    <mat-label>Quantité</mat-label>
+                    <input matInput type="number" formControlName="quantity" min="1">
+                    <mat-error *ngIf="form.get('quantity')?.hasError('min')">
+                        La quantité doit être au moins 1
+                    </mat-error>
+                </mat-form-field>
+
+                <button mat-raised-button color="primary" type="button" (click)="addGoodie()">
+                    <mat-icon>add</mat-icon> Ajouter
+                </button>
+            </div>
+
+            <!-- Liste des goodies sélectionnés -->
+            <mat-list *ngIf="selectedGoodies.length > 0">
+                <mat-list-item *ngFor="let item of selectedGoodies; let i = index">
+                    <span>{{item.goodie.nom}} (x{{item.quantity}}) - {{item.goodie.coutUnitaire * item.quantity |
+                        currency:'EUR'}}</span>
+                    <button mat-icon-button color="warn" (click)="removeGoodie(i)">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </mat-list-item>
+            </mat-list>
+        </div>
+
+        <button mat-raised-button color="primary" type="submit"
+            [disabled]="form.invalid || selectedGoodies.length === 0">
+            Créer la réservation
+        </button>
+    </form>
+</div>

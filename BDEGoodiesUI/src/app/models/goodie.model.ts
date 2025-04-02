@@ -1,6 +1,6 @@
 export class Goodie{
     // Attributs 
-    id: number;
+    idGoodie: number;
     nom: string;
     quantite: number;
     description: string;
@@ -8,7 +8,7 @@ export class Goodie{
 
     // Constructeur
     constructor(id: number, nom: string, quantite: number, description: string, coutUnitaire: number){
-        this.id = id;
+        this.idGoodie = id;
         this.nom = nom;
         this.quantite = quantite;
         this.description = description;

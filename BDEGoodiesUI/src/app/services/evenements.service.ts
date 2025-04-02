@@ -27,4 +27,9 @@ export class EvenementsService {
   getInscriptions(id: number):Observable<Etudiant[]>{
     return this.http.get<Etudiant[]>(`${this.apiUrl}/${id}/etudiants`);
   }
+
+  // Désinscrire un étudiant
+  delete(idEvenement: number, idEtudiant: number):Observable<void>{
+    return this.http.delete<void>(`${this.apiUrl}/${idEvenement}/etudiants/${idEtudiant}`);
+  }
 }

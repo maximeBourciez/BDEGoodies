@@ -7,7 +7,7 @@ export enum StatutReservation{
 
 export class Reservation{
     // Attributs
-    id: number;
+    idReservation: number;
     idEtudiant: number;
     idEvenement: number;
     dateReservation: Date;
@@ -15,7 +15,7 @@ export class Reservation{
 
     // Constructeur
     constructor(id: number, idEtudiant: number, idEvenement: number, dateReservation: Date, statut: StatutReservation){
-        this.id = id;
+        this.idReservation = id;
         this.idEtudiant = idEtudiant;
         this.idEvenement = idEvenement;
         this.dateReservation = dateReservation;

@@ -1,1 +1,21 @@
 /* You can add global styles to this file, and also import other style files */
+/* Correction du fond transparent des options */
+.mat-mdc-select-panel {
+    background: white !important;
+
+    .mat-mdc-option {
+        background: white !important;
+
+        &:hover {
+            background: rgba(0, 0, 0, 0.04) !important;
+        }
+
+        &.mat-mdc-option-active {
+            background: rgba(0, 0, 0, 0.04) !important;
+        }
+    }
+}
+
+.title {
+    color: #3f51b5;
+}

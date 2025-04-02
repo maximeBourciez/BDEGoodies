@@ -1,0 +1,61 @@
+.reservation-container {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 1rem;
+}
+
+mat-form-field {
+    width: 100%;
+    margin-bottom: 1rem;
+}
+
+.goodies-section {
+    margin: 2rem 0;
+}
+
+.goodie-add {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-end;
+
+    .quantity-field {
+        max-width: 100px;
+    }
+}
+
+mat-list {
+    margin-top: 1rem;
+    border: 1px solid #eee;
+    border-radius: 4px;
+
+    mat-list-item {
+        display: flex;
+        justify-content: space-between;
+    }
+}
+
+button[type="submit"] {
+    margin-top: 1rem;
+}
+
+/* Version avec variables Material */
+:host ::ng-deep {
+    .mat-mdc-select-panel {
+        background: var(--mat-menu-container-color, white);
+        border-radius: 4px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+
+        .mat-mdc-option {
+            color: var(--mat-option-label-text-color, rgba(0, 0, 0, 0.87));
+
+            &:hover:not(.mdc-list-item--disabled),
+            &.mat-mdc-option-active:not(.mdc-list-item--disabled) {
+                background: var(--mat-option-hover-state-layer-color, rgba(0, 0, 0, 0.04));
+            }
+
+            &.mat-mdc-selected:not(.mat-mdc-option-multiple) {
+                background: var(--mat-option-selected-state-layer-color, rgba(0, 0, 0, 0.04));
+            }
+        }
+    }
+}

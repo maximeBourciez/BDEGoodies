@@ -1,7 +1,8 @@
 import { Component, inject, Input } from '@angular/core';
-import { Evenement } from '../models/evenement.model'; 
+import { Evenement } from '../models/evenement.model';
 import { EvenementsService } from '../services/evenements.service';
 import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-evenement',
@@ -14,14 +15,17 @@ export class EvenementComponent {
   @Input() isListView: boolean = true;
   private readonly eventService: EvenementsService = inject(EvenementsService);
   private readonly router: ActivatedRoute = inject(ActivatedRoute);
-  displayedColumns: string[] = ['nom', 'mail', 'telephone', 'statut'];
+
+  displayedColumns: string[] = ['nom', 'mail', 'telephone', 'statut', 'actions'];
+  dialog: any;
+  snackBar: any;
 
   // constructeur
   constructor() {
   }
 
   // Méthodes
-  ngOnInit(){
+  ngOnInit() {
     // Récupération de l'article via son id
     const idParam = this.router.snapshot.paramMap.get('id');
 
@@ -40,21 +44,36 @@ export class EvenementComponent {
   }
 
   // Chargement des inscrits
-  loadInscriptions(){
+  loadInscriptions() {
     this.eventService.getInscriptions(this.event.idEvenement).subscribe(inscriptions => {
       this.event.inscrits = inscriptions;
     });
   }
 
-  
+
 
   // Méthode pour la couleur du statut
   getStatutColor(statut: string): string {
-    switch(statut) {
+    switch (statut) {
       case 'Confirmée': return 'green';
       case 'En attente': return 'accent';
       case 'Annulée': return 'red';
       default: return '';
+    }
+  }
+
+  deleteInscription(idEtudiant: number): void {
+    if (confirm('Êtes-vous sûr de vouloir supprimer cette inscription ?')) {
+      this.eventService.delete(this.event.idEvenement, idEtudiant).subscribe({
+        next: () => {
+          this.snackBar.open('Inscription supprimée avec succès', 'Fermer', { duration: 3000 });
+          this.loadInscriptions();
+        },
+        error: (err: any) => {
+          console.error('Erreur lors de la suppression', err);
+          this.snackBar.open('Erreur lors de la suppression', 'Fermer', { duration: 3000 });
+        }
+      });
     }
   }
 }

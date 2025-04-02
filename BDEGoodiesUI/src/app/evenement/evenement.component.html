@@ -20,9 +20,9 @@
 </mat-card>
 } @else {
 <div class="event-detail-container">
-    <mat-card class="event-detail-card">    
+    <mat-card class="event-detail-card">
         <div class="event-header">
-            <h1 class="event-title">{{ event.nom }}</h1>
+            <h1 class="title">{{ event.nom }}</h1>
             <div class="event-meta">
                 <span class="event-date">
                     <mat-icon>event</mat-icon>
@@ -67,36 +67,36 @@
 
             <div class="inscrits-section" *ngIf="event.inscrits && event.inscrits.length > 0">
                 <div class="table-header">
-                    <h2>Liste des participants</h2>
+                    <h2 class="title">Liste des participants</h2>
                     <mat-button color="primary" [routerLink]="'/event/' + event.idEvenement + '/addetudiant'">
                         Gérer les inscriptions
                     </mat-button>
                 </div>
-                
-                
+
+
                 <mat-table [dataSource]="event.inscrits" class="mat-elevation-z8">
                     <!-- Colonne Nom -->
                     <ng-container matColumnDef="nom">
                         <mat-header-cell *matHeaderCellDef> Nom </mat-header-cell>
                         <mat-cell *matCellDef="let etudiant"> {{etudiant.nom}} </mat-cell>
                     </ng-container>
-    
+
                     <!-- Colonne Email -->
                     <ng-container matColumnDef="mail">
                         <mat-header-cell *matHeaderCellDef> Email </mat-header-cell>
                         <mat-cell *matCellDef="let etudiant"> {{etudiant.mail}} </mat-cell>
                     </ng-container>
-    
+
                     <!-- Colonne Téléphone -->
                     <ng-container matColumnDef="telephone">
                         <mat-header-cell *matHeaderCellDef> Téléphone </mat-header-cell>
                         <mat-cell *matCellDef="let etudiant"> {{etudiant.telephone}} </mat-cell>
                     </ng-container>
-    
+
                     <!-- Colonne Statut -->
                     <ng-container matColumnDef="statut">
                         <mat-header-cell *matHeaderCellDef> Statut </mat-header-cell>
-                        <mat-cell *matCellDef="let etudiant"> 
+                        <mat-cell *matCellDef="let etudiant">
                             <mat-chip-listbox>
                                 <mat-chip [color]="getStatutColor(etudiant.statut)" selected>
                                     {{etudiant.statut}}
@@ -104,7 +104,17 @@
                             </mat-chip-listbox>
                         </mat-cell>
                     </ng-container>
-    
+
+                    <!-- Colonne Actions -->
+                    <ng-container matColumnDef="actions">
+                        <mat-header-cell *matHeaderCellDef> Actions </mat-header-cell>
+                        <mat-cell *matCellDef="let etudiant">
+                            <button mat-icon-button color="warn" (click)="deleteInscription(etudiant.idEtudiant)">
+                                <mat-icon>delete</mat-icon>
+                            </button>
+                        </mat-cell>
+                    </ng-container>
+
                     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
                     <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
                 </mat-table>
