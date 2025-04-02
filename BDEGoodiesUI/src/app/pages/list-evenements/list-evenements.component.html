@@ -1,17 +1,65 @@
 <div class="container">
-    <div class="title-block"> 
+    <div class="title-block">
         <h1 class="title">Liste des événements</h1>
-        <mat-button routerLink="/add-event" color="primary">+</mat-button>
+        <button mat-raised-button routerLink="/add-event" color="primary">
+            <mat-icon>add</mat-icon> Ajouter
+        </button>
     </div>
-   
 
+    <!-- Filtres -->
+    <mat-card class="filters-card">
+        <mat-card-content>
+            <div class="filters-container">
+                <mat-form-field appearance="outline">
+                    <mat-label>Recherche</mat-label>
+                    <input matInput [(ngModel)]="searchText" (input)="onSearchTextChange()" placeholder="Rechercher...">
+                    <mat-icon matSuffix>search</mat-icon>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Thème</mat-label>
+                    <mat-select [(value)]="selectedTheme" (selectionChange)="applyFilters()" multiple>
+                        <mat-option *ngFor="let theme of availableThemes" [value]="theme">
+                            {{theme}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Date de début</mat-label>
+                    <input matInput [matDatepicker]="startDatePicker" [(ngModel)]="startDate"
+                        (dateChange)="applyFilters()">
+                    <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+                    <mat-datepicker #startDatePicker></mat-datepicker>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Date de fin</mat-label>
+                    <input matInput [matDatepicker]="endDatePicker" [(ngModel)]="endDate" (dateChange)="applyFilters()">
+                    <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
+                    <mat-datepicker #endDatePicker></mat-datepicker>
+                </mat-form-field>
+
+                <button mat-stroked-button (click)="resetFilters()" class="reset-btn">
+                    <mat-icon>refresh</mat-icon> Réinitialiser
+                </button>
+            </div>
+        </mat-card-content>
+    </mat-card>
+
+    <!-- Liste des événements -->
     <mat-grid-list [cols]="gridCols" rowHeight="1:1" gutterSize="20px">
-        <mat-grid-tile *ngFor="let event of events; trackBy: trackEvent" class="grid-item">
+        <mat-grid-tile *ngFor="let event of filteredEvents; trackBy: trackEvent" class="grid-item">
             <app-evenement [event]="event"></app-evenement>
         </mat-grid-tile>
     </mat-grid-list>
 
-    <div class="text-center">
+    <div class="text-center" *ngIf="hasMoreEvents">
         <button mat-raised-button color="primary" (click)="loadMore()">Charger plus</button>
+    </div>
+
+    <div class="no-results" *ngIf="filteredEvents.length === 0">
+        <mat-icon>event_busy</mat-icon>
+        <p>Aucun événement ne correspond à vos critères</p>
     </div>
 </div>

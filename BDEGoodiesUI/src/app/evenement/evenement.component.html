@@ -1,23 +1,29 @@
 @if (isListView) {
-<mat-card class="evenement-card">
-    <mat-card-header>
-        <mat-card-title>{{ event.nom }}</mat-card-title>
-        <mat-card-subtitle>{{ event.dateHeure ? (event.dateHeure | date:'shortDate') : 'Date non disponible' }} - {{
-            event.lieu }}</mat-card-subtitle>
-    </mat-card-header>
-
-    <mat-card-content>
-        <p class="theme">Thème : {{ event.theme }}</p>
-        <p class="prix">{{ event.prix | currency:'EUR' }}</p>
-        <p>Places disponibles : {{ event.capacite }}</p>
-    </mat-card-content>
-
-    <mat-card-actions>
-        <button mat-raised-button color="primary" [routerLink]="'/event/' + event.idEvenement">
-            Gérer
-        </button>
-    </mat-card-actions>
-</mat-card>
+    <mat-card class="evenement-card">
+        <mat-card-header>
+            <mat-card-title>{{ event.nom }}</mat-card-title>
+            <mat-card-subtitle>{{ (event.dateHeure | date:'shortDate') }} - {{ event.lieu }}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+            <p class="theme">
+                <mat-icon>category</mat-icon>
+                Thème : {{ event.theme }}
+            </p>
+            <p class="prix">
+                <mat-icon>euro_symbol</mat-icon>
+                {{ event.prix | currency:'EUR' }}
+            </p>
+            <p>
+                <mat-icon>people</mat-icon>
+                Places disponibles : {{ event.capacite }}
+            </p>
+        </mat-card-content>
+        <mat-card-actions>
+            <button mat-raised-button color="primary" [routerLink]="'/event/' + event.idEvenement">
+                Gérer
+            </button>
+        </mat-card-actions>
+    </mat-card>
 } @else {
 <div class="event-detail-container">
     <mat-card class="event-detail-card">

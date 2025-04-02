@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 // Composants 
 import { AppComponent } from './app.component';
@@ -32,6 +32,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatListModule } from '@angular/material/list';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 @NgModule({
   declarations: [
@@ -54,6 +56,7 @@ import { MatInputModule } from '@angular/material/input';
     BrowserAnimationsModule,
     HttpClientModule,
     ReactiveFormsModule,
+    FormsModule,
 
     // Angular Material
     MatToolbarModule,
@@ -70,6 +73,9 @@ import { MatInputModule } from '@angular/material/input';
     MatListModule,
     MatSelectModule,
     MatInputModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,3 +1,77 @@
+.evenement-card {
+    max-width: 400px;
+    width: 400px;
+    margin: 16px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid #ddd;
+
+    &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        border: none;
+    }
+
+    mat-card-header {
+        background-color: #3f51b5; // Bleu Angular Material
+        color: white;
+        padding: 16px;
+        border-radius: 8px 8px 0 0;
+
+        mat-card-title {
+            font-size: 1.2rem;
+            font-weight: 500;
+        }
+
+        mat-card-subtitle {
+            color: rgba(255, 255, 255, 0.7);
+            margin-top: 4px;
+        }
+    }
+
+    mat-card-content {
+        padding: 16px;
+
+        p {
+            display: flex;
+            align-items: center;
+            margin: 12px 0;
+            font-size: 0.95rem;
+
+            mat-icon {
+                margin-right: 8px;
+                color: #3f51b5; // Bleu Angular Material
+                font-size: 1.2rem;
+                width: auto;
+                height: auto;
+            }
+        }
+
+        .theme {
+            font-weight: 500;
+            color: #333;
+        }
+
+        .prix {
+            color: #2e7d32; // Vert pour le prix
+            font-weight: 500;
+        }
+    }
+
+    mat-card-actions {
+        display: flex;
+        justify-content: flex-end;
+        padding: 8px 16px 16px;
+
+        button {
+            background-color: #3f51b5; // Bleu Angular Material
+            color: white;
+            border-radius: 15px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+    }
+}
+
 .event-detail-container {
     padding: 20px;
     max-width: 900px;
