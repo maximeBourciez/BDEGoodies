@@ -1,5 +1,9 @@
 <div class="container">
-    <h1>Liste des événements</h1>
+    <div class="title-block"> 
+        <h1 class="title">Liste des événements</h1>
+        <mat-button routerLink="/add-event" color="primary">+</mat-button>
+    </div>
+   
 
     <mat-grid-list [cols]="gridCols" rowHeight="1:1" gutterSize="20px">
         <mat-grid-tile *ngFor="let event of events; trackBy: trackEvent" class="grid-item">

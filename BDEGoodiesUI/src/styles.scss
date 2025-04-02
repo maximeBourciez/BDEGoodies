@@ -19,3 +19,18 @@
 .title {
     color: #3f51b5;
 }
+mat-button{
+    background-color: #3f51b5;
+    color: white;
+    font-weight: bold;
+    border-radius: 50%;
+    margin: 5px 10px;
+    width: 50px;
+    height: 50px;
+    align-content: center;
+    padding: 10px 10px;
+
+    &:hover {
+        background-color: #303f9f;
+    }
+}
