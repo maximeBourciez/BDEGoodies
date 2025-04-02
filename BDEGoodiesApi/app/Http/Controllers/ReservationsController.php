@@ -123,4 +123,15 @@ class ReservationsController extends Controller
         // Retourner la vue avec les réservations de l'événement
         return response()->json($reservations);
     }
+
+
+
+    public function getReservationsAvecGoodies($idEvenement)
+    {
+        $reservations = Reservation::with(['goodies', 'etudiant'])
+            ->where('idEvenement', $idEvenement)
+            ->get();
+
+        return response()->json($reservations);
+    }
 }

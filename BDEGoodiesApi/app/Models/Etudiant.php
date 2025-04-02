@@ -37,4 +37,15 @@ class Etudiant extends Model
         'mail' => 'string',
         'telephone' => 'string',
     ];
+
+    public function evenements()
+    {
+        return $this->belongsToMany(Evenement::class, 'reservations', 'idEtudiant', 'idEvenement')
+            ->withPivot('dateReservation', 'statut');
+    }   
+
+    public function reservations()
+    {
+        return $this->hasMany(Reservation::class, 'idEtudiant');
+    }
 }

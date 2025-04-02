@@ -15,7 +15,7 @@ return new class extends Migration
             $table->unsignedBigInteger('idEvenement');
             $table->string('nom');
             $table->string('lieu');
-            $table->datetime('dateHeure');
+            $table->dateTime('dateHeure');
             $table->integer('prix');
             $table->integer('capacite');
             $table->string('theme');            

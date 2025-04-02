@@ -46,6 +46,12 @@ class Evenement extends Model
     // Relation avec le modèle Etudiant
     public function etudiants()
     {
-        return $this->belongsToMany(Etudiant::class, 'etudiant_evenement', 'idEvenement', 'idEtudiant');
+        return $this->belongsToMany(Etudiant::class, 'reservations', 'idEvenement', 'idEtudiant')
+            ->withPivot('dateReservation', 'statut');
+    }
+
+    public function reservations()
+    {
+        return $this->hasMany(Reservation::class, 'idEvenement');
     }
 }

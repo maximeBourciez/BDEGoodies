@@ -43,12 +43,17 @@ class Reservation extends Model
     // Relation avec le modèle Etudiant
     public function etudiant()
     {
-        return $this->belongsTo(Etudiant::class, 'idEtudiant', 'idEtudiant');
+        return $this->belongsTo(Etudiant::class, 'idEtudiant');
     }
 
-    // Relation avec le modèle Evenement    
     public function evenement()
     {
-        return $this->belongsTo(Evenement::class, 'idEvenement', 'idEvenement');
+        return $this->belongsTo(Evenement::class, 'idEvenement');
+    }
+
+    public function goodies()
+    {
+        return $this->belongsToMany(Goodie::class, 'reservation_goodies', 'idReservation', 'idGoodie')
+            ->withPivot('quantite');
     }
 }

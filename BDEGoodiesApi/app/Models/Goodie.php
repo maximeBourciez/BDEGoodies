@@ -45,4 +45,10 @@ class Goodie extends Model
     {
         return $this->belongsToMany(Evenement::class, 'goodie_evenement', 'idGoodie', 'idEvenement');
     }
+
+    public function reservations()
+    {
+        return $this->belongsToMany(Reservation::class, 'reservation_goodies', 'idGoodie', 'idReservation')
+            ->withPivot('quantite');
+    }
 }

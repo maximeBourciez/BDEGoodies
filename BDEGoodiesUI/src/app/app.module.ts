@@ -22,6 +22,9 @@ import { EvenementComponent } from './evenement/evenement.component';
 import { ListEvenementsComponent } from './pages/list-evenements/list-evenements.component';
 import { GoodieComponent } from './goodie/goodie.component';
 import { ListGoodiesComponent } from './pages/list-goodies/list-goodies.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatChipListbox } from '@angular/material/chips';
 
 @NgModule({
   declarations: [
@@ -51,6 +54,9 @@ import { ListGoodiesComponent } from './pages/list-goodies/list-goodies.componen
     MatCardModule,
     DragDropModule,
     MatGridListModule,
+    MatTableModule,
+    MatChipsModule,
+    MatChipListbox,
   ],
   providers: [],
   bootstrap: [AppComponent]

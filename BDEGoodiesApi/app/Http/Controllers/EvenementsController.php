@@ -94,5 +94,18 @@ class EvenementsController extends Controller
         return response()->json(['message' => 'Événement supprimé avec succès']);
     }
 
+
+    public function getEtudiantsInscrits($idEvenement)
+    {
+        $evenement = Evenement::with(['etudiants' => function ($query) {
+            $query->withPivot('dateReservation', 'statut');
+        }])->find($idEvenement);
+
+        if (!$evenement) {
+            return response()->json(['message' => 'Événement non trouvé'], 404);
+        }
+
+        return response()->json($evenement->etudiants);
+    }
     
 }

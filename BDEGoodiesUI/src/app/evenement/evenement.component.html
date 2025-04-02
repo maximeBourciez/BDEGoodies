@@ -1,7 +1,9 @@
+@if (isListView) {
 <mat-card class="evenement-card">
     <mat-card-header>
         <mat-card-title>{{ event.nom }}</mat-card-title>
-        <mat-card-subtitle>{{ event.date ? (event.date | date:'shortDate') : 'Date non disponible' }} - {{ event.lieu }}</mat-card-subtitle>
+        <mat-card-subtitle>{{ event.dateHeure ? (event.dateHeure | date:'shortDate') : 'Date non disponible' }} - {{
+            event.lieu }}</mat-card-subtitle>
     </mat-card-header>
 
     <mat-card-content>
@@ -11,6 +13,103 @@
     </mat-card-content>
 
     <mat-card-actions>
-        <button mat-raised-button color="primary">Gérer</button>
+        <button mat-raised-button color="primary" [routerLink]="'/event/' + event.idEvenement">
+            Gérer
+        </button>
     </mat-card-actions>
 </mat-card>
+} @else {
+<div class="event-detail-container">
+    <mat-card class="event-detail-card">    
+        <div class="event-header">
+            <h1 class="event-title">{{ event.nom }}</h1>
+            <div class="event-meta">
+                <span class="event-date">
+                    <mat-icon>event</mat-icon>
+                    {{ event.dateHeure ? (event.dateHeure | date:'fullDate') : 'Date non disponible' }}
+                </span>
+                <span class="event-location">
+                    <mat-icon>location_on</mat-icon>
+                    {{ event.lieu }}
+                </span>
+            </div>
+        </div>
+
+        <div class="event-content">
+            <div class="event-info-section">
+                <h2>Détails de l'événement</h2>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <mat-icon>category</mat-icon>
+                        <span><strong>Thème :</strong> {{ event.theme }}</span>
+                    </div>
+                    <div class="info-item">
+                        <mat-icon>euro_symbol</mat-icon>
+                        <span><strong>Prix :</strong> {{ event.prix | currency:'EUR':'symbol':'1.2-2' }}</span>
+                    </div>
+                    <div class="info-item">
+                        <mat-icon>people</mat-icon>
+                        <span><strong>Capacité :</strong> {{ event.capacite }} places</span>
+                    </div>
+                    <div class="info-item">
+                        <mat-icon>confirmation_number</mat-icon>
+                        <span><strong>Places restantes :</strong> {{ event.capacite }}</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="event-description">
+                <h2>Description</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore
+                    et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+                    aliquip ex ea commodo consequat.</p>
+            </div>
+
+            <div class="inscrits-section" *ngIf="event.inscrits && event.inscrits.length > 0">
+                <div class="table-header">
+                    <h2>Liste des participants</h2>
+                    <mat-button color="primary" [routerLink]="'/event/' + event.idEvenement + '/addetudiant'">
+                        Gérer les inscriptions
+                    </mat-button>
+                </div>
+                
+                
+                <mat-table [dataSource]="event.inscrits" class="mat-elevation-z8">
+                    <!-- Colonne Nom -->
+                    <ng-container matColumnDef="nom">
+                        <mat-header-cell *matHeaderCellDef> Nom </mat-header-cell>
+                        <mat-cell *matCellDef="let etudiant"> {{etudiant.nom}} </mat-cell>
+                    </ng-container>
+    
+                    <!-- Colonne Email -->
+                    <ng-container matColumnDef="mail">
+                        <mat-header-cell *matHeaderCellDef> Email </mat-header-cell>
+                        <mat-cell *matCellDef="let etudiant"> {{etudiant.mail}} </mat-cell>
+                    </ng-container>
+    
+                    <!-- Colonne Téléphone -->
+                    <ng-container matColumnDef="telephone">
+                        <mat-header-cell *matHeaderCellDef> Téléphone </mat-header-cell>
+                        <mat-cell *matCellDef="let etudiant"> {{etudiant.telephone}} </mat-cell>
+                    </ng-container>
+    
+                    <!-- Colonne Statut -->
+                    <ng-container matColumnDef="statut">
+                        <mat-header-cell *matHeaderCellDef> Statut </mat-header-cell>
+                        <mat-cell *matCellDef="let etudiant"> 
+                            <mat-chip-listbox>
+                                <mat-chip [color]="getStatutColor(etudiant.statut)" selected>
+                                    {{etudiant.statut}}
+                                </mat-chip>
+                            </mat-chip-listbox>
+                        </mat-cell>
+                    </ng-container>
+    
+                    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                </mat-table>
+            </div>
+        </div>
+    </mat-card>
+</div>
+}
