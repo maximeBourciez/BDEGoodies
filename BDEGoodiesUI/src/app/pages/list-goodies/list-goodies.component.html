@@ -1,0 +1,12 @@
+<div class="container">
+    <h2>Liste des goodies</h2>
+
+    <mat-grid-list cols="3" rowHeight="1:1" gutterSize="16px">
+        @for (goodie of goodies; track goodie.id) {
+            <mat-grid-tile>
+                <app-goodie [goodie]="goodie"></app-goodie>
+            </mat-grid-tile>
+        }
+
+    </mat-grid-list>
+</div>

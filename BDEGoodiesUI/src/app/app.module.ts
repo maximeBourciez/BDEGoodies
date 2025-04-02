@@ -20,6 +20,8 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { EvenementComponent } from './evenement/evenement.component';
 import { ListEvenementsComponent } from './pages/list-evenements/list-evenements.component';
+import { GoodieComponent } from './goodie/goodie.component';
+import { ListGoodiesComponent } from './pages/list-goodies/list-goodies.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +31,9 @@ import { ListEvenementsComponent } from './pages/list-evenements/list-evenements
     FooterComponent,
     HomeComponent,
     EvenementComponent,
-    ListEvenementsComponent
+    ListEvenementsComponent,
+    GoodieComponent,
+    ListGoodiesComponent
   ],
   imports: [
     

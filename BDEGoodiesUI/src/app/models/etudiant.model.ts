@@ -6,7 +6,7 @@ export class Etudiant{
     telephone: string;
 
     // Constructeur
-    constructor(id: number, nom: string, email: string, telephone: string){
+    constructor(id: number, nom: string, email: string, telephone: string, annee: number){
         this.id = id;
         this.nom = nom;
         this.email = email;

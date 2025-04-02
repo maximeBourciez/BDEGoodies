@@ -1,0 +1,9 @@
+.goodie-card {
+    margin-top: 20px;
+    padding: 15px;
+    transition: transform 0.3s ease-in-out;
+
+    &:hover {
+        transform: scale(1.05);
+    }
+}

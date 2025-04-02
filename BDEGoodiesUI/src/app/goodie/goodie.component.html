@@ -1,0 +1,8 @@
+<mat-card class="goodie-card" *ngIf="goodie">
+    <mat-card-title>{{ goodie.nom }}</mat-card-title>
+    <mat-card-content>
+        <p><strong>Description :</strong> {{ goodie.description }}</p>
+        <p><strong>Quantité :</strong> {{ goodie.quantite }}</p>
+        <p><strong>Coût unitaire :</strong> {{ goodie.coutUnitaire }} €</p>
+    </mat-card-content>
+</mat-card>
