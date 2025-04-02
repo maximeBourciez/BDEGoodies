@@ -13,6 +13,7 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-reservation',
+  standalone: false,
   templateUrl: './add-reservation.component.html',
   styleUrls: ['./add-reservation.component.scss']
 })
@@ -32,6 +33,7 @@ export class AddReservationComponent {
   selectedGoodies: {goodie: Goodie, quantity: number}[] = [];
   form!: FormGroup;
   isLoading = false;
+  statuts: string[] = [];
 
   ngOnInit(): void {
     this.loadData();
@@ -40,16 +42,20 @@ export class AddReservationComponent {
 
   loadData(): void {
     this.isLoading = true;
+
+    // Charger les évènements
     this.eventService.getEvenements().subscribe({
       next: events => this.events = events,
       error: () => this.showError('Erreur lors du chargement des événements')
     });
 
+    // Charger les goodies
     this.goodieService.getGoodies().subscribe({
       next: goodies => this.goodies = goodies,
       error: () => this.showError('Erreur lors du chargement des goodies')
     });
 
+    // Charger les étudiants
     this.studentService.getEtudiants().subscribe({
       next: students => {
         this.students = students;
@@ -60,12 +66,16 @@ export class AddReservationComponent {
         this.isLoading = false;
       }
     });
+
+    // Charger les statuts
+    this.statuts = Object.values(StatutReservation);
   }
 
   initForm(): void {
     this.form = this.fb.group({
       eventId: ['', Validators.required],
       studentId: ['', Validators.required],
+      statut: ['', Validators.required],
       goodieId: [''],
       quantity: [1, [Validators.min(1), Validators.required]]
     });
@@ -97,24 +107,22 @@ export class AddReservationComponent {
       return;
     }
 
-    const reservationData = {
+    const reservationData: Reservation = {
+      idReservation: 0,
       idEtudiant: this.form.value.studentId,
       idEvenement: this.form.value.eventId,
       dateReservation: new Date(),
       statut: StatutReservation.EnAttente,
-      goodies: this.selectedGoodies.map(item => ({
-        idGoodie: item.goodie.idGoodie,
-        quantite: item.quantity
-      }))
+      
     };
 
     this.isLoading = true;
     this.reservationService.create(reservationData).subscribe({
-      next: (reservation) => {
+      next: (reservation : Reservation) => {
         this.snackBar.open('Réservation créée avec succès', 'Fermer', { duration: 3000 });
         this.router.navigate(['/event', reservation.idEvenement]);
       },
-      error: (error) => {
+      error: (error : Error) => {
         console.error('Erreur lors de la création de la réservation:', error);
         this.snackBar.open('Erreur lors de la création de la réservation', 'Fermer', { duration: 3000 });
         this.isLoading = false;

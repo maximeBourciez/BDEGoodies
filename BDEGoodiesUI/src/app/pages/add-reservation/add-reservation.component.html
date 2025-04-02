@@ -28,6 +28,19 @@
             </mat-error>
         </mat-form-field>
 
+        <!-- Section Statut -->
+        <mat-form-field appearance="fill">
+            <mat-label>Statut</mat-label>
+            <mat-select formControlName="statut" required>
+                <mat-option *ngFor="let statut of statuts" value="statut">
+                    {{  statut }}
+                </mat-option>
+            </mat-select>
+            <mat-error *ngIf="form.get('statut')?.hasError('required')">
+                Ce champ est obligatoire
+            </mat-error>
+        </mat-form-field>
+
         <!-- Ajout de goodies -->
         <div class="goodies-section">
             <h3>Goodies</h3>
