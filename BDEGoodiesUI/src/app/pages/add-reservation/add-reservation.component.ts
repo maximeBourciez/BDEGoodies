@@ -77,7 +77,8 @@ export class AddReservationComponent {
       studentId: ['', Validators.required],
       statut: [StatutReservation.EnAttente, Validators.required],
       goodieId: [''],
-      quantity: [1, [Validators.min(1)]]
+      quantity: [1, [Validators.min(1)]],
+      commentaire: ['']
     });
   }
 

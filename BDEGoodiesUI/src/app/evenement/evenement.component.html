@@ -1,29 +1,31 @@
 @if (isListView) {
-    <mat-card class="evenement-card">
-        <mat-card-header>
-            <mat-card-title>{{ event.nom }}</mat-card-title>
-            <mat-card-subtitle>{{ (event.dateHeure | date:'shortDate') }} - {{ event.lieu }}</mat-card-subtitle>
-        </mat-card-header>
-        <mat-card-content>
-            <p class="theme">
-                <mat-icon>category</mat-icon>
-                Thème : {{ event.theme }}
-            </p>
-            <p class="prix">
-                <mat-icon>euro_symbol</mat-icon>
-                {{ event.prix | currency:'EUR' }}
-            </p>
-            <p>
-                <mat-icon>people</mat-icon>
-                Places disponibles : {{ event.capacite }}
-            </p>
-        </mat-card-content>
-        <mat-card-actions>
-            <button mat-raised-button color="primary" [routerLink]="'/event/' + event.idEvenement">
-                Gérer
-            </button>
-        </mat-card-actions>
-    </mat-card>
+    <a [routerLink]="'/event/' + event.idEvenement" style="text-decoration: none; color: inherit">
+        <mat-card class="evenement-card">
+            <mat-card-header>
+                <mat-card-title>{{ event.nom }}</mat-card-title>
+                <mat-card-subtitle>{{ (event.dateHeure | date:'shortDate') }} - {{ event.lieu }}</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+                <p class="theme">
+                    <mat-icon>category</mat-icon>
+                    Thème : {{ event.theme }}
+                </p>
+                <p class="prix">
+                    <mat-icon>euro_symbol</mat-icon>
+                    {{ event.prix | currency:'EUR' }}
+                </p>
+                <p>
+                    <mat-icon>people</mat-icon>
+                    Places disponibles : {{ event.capacite }}
+                </p>
+            </mat-card-content>
+            <mat-card-actions>
+                <button mat-raised-button color="primary" [routerLink]="'/event/' + event.idEvenement">
+                    Gérer
+                </button>
+            </mat-card-actions>
+        </mat-card>
+    </a>
 } @else {
 <div class="event-detail-container">
     <mat-card class="event-detail-card">
@@ -77,13 +79,20 @@
 
             <div class="inscrits-section" *ngIf="event.inscrits && event.inscrits.length > 0">
                 <div class="table-header">
-                    <h2 class="title">Liste des participants</h2>
+                    <div class="header-left">
+                        <h2 class="title">Liste des participants</h2>
+                        <!-- Barre de recherche -->
+                        <mat-form-field appearance="outline" class="search-bar">
+                            <mat-label>Rechercher un participant</mat-label>
+                            <input matInput [(ngModel)]="searchText" (input)="applyFilter()" placeholder="Nom, email...">
+                            <mat-icon matSuffix>search</mat-icon>
+                        </mat-form-field>
+                    </div>
                     <button mat-icon-button class="round-button"
                         [routerLink]="'/event/' + event.idEvenement + '/addetudiant'" aria-label="Ajouter étudiant">
                         <mat-icon>add</mat-icon>
                     </button>
                 </div>
-
 
                 <mat-table [dataSource]="event.inscrits" class="mat-elevation-z8">
                     <!-- Colonne Nom -->
@@ -109,7 +118,7 @@
                         <mat-header-cell *matHeaderCellDef> Statut </mat-header-cell>
                         <mat-cell *matCellDef="let etudiant">
                             <mat-chip-listbox>
-                                <mat-chip [color]="getStatutColor(etudiant.statut)" selected>
+                                <mat-chip [color]="getStatutColor(etudiant.idEtudiant)" selected>
                                     {{etudiant.statut}}
                                 </mat-chip>
                             </mat-chip-listbox>

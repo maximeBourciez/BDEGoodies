@@ -3,6 +3,7 @@ import { Evenement } from '../models/evenement.model';
 import { EvenementsService } from '../services/evenements.service';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-evenement',
@@ -20,6 +21,9 @@ export class EvenementComponent {
   dialog: any;
   snackBar: any;
 
+  searchText: string = '';
+  dataSource!: MatTableDataSource<any>;
+
   // constructeur
   constructor() {
   }
@@ -29,6 +33,7 @@ export class EvenementComponent {
     // Récupération de l'article via son id
     const idParam = this.router.snapshot.paramMap.get('id');
 
+    
     if (idParam !== null) {
       const id = parseInt(idParam, 10);
       this.eventService.getEvenementById(id).subscribe(produit => {
@@ -38,13 +43,18 @@ export class EvenementComponent {
         this.isListView = false;
 
         // Charger les personnes inscrites
-        this.loadInscriptions();
+        this.loadReservations();
+
+        // Initialiser la liste
+        this.dataSource = new MatTableDataSource<any>(this.event.inscrits);
       });
     }
+
+    
   }
 
   // Chargement des inscrits
-  loadInscriptions() {
+  loadReservations() {
     this.eventService.getInscriptions(this.event.idEvenement).subscribe(inscriptions => {
       this.event.inscrits = inscriptions;
     });
@@ -67,7 +77,7 @@ export class EvenementComponent {
       this.eventService.delete(this.event.idEvenement, idEtudiant).subscribe({
         next: () => {
           this.snackBar.open('Inscription supprimée avec succès', 'Fermer', { duration: 3000 });
-          this.loadInscriptions();
+          this.loadReservations();
         },
         error: (err: any) => {
           console.error('Erreur lors de la suppression', err);
@@ -75,5 +85,10 @@ export class EvenementComponent {
         }
       });
     }
+  }
+
+
+  applyFilter() {
+    this.dataSource.filter = this.searchText.trim().toLowerCase();
   }
 }
