@@ -19,7 +19,7 @@ export class GoodiesService {
     return this.http.get<Goodie[]>(this.apiUrl);
   }
 
-  getGoodieById(id: number):Observable<Goodie>{
-    return this.http.get<Goodie>(`${this.apiUrl}/${id}`);
+  updateGoodie(goodie: Goodie){
+    return this.http.put<Goodie>(this.apiUrl + '/' + goodie.idGoodie, goodie);
   }
 }

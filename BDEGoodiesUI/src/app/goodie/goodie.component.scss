@@ -1,41 +1,47 @@
 .goodie-card {
-  max-width: 400px;
-  width: 400px;
-  margin: 16px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  border: 1px solid #ddd;
-  border-radius: 8px;
+  max-width: 500px;
+  margin: 20px auto;
+  padding: 20px;
 
-  &:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-    border: none;
-  }
-
-  mat-card-title {
+  mat-card-header {
     background-color: #3f51b5;
     color: white;
     padding: 16px;
-    font-size: 1.2rem;
-    font-weight: 500;
     border-radius: 8px 8px 0 0;
+
+    mat-card-title {
+      font-size: 1.2rem;
+      font-weight: 500;
+      color: white
+    }
+
+    mat-card-subtitle {
+      color: rgba(255, 255, 255, 0.7);
+      margin-top: 4px;
+    }
   }
 
   mat-card-content {
-    padding: 16px;
-
     p {
       display: flex;
       align-items: center;
-      margin: 12px 0;
-      font-size: 0.95rem;
+      gap: 10px;
+      margin: 15px 0;
 
       strong {
-        width: 130px;
-        color: #3f51b5;
-        font-weight: 600;
-        margin-right: 8px;
+        min-width: 120px;
+      }
+
+      span {
+        min-width: 30px;
+        text-align: center;
       }
     }
+  }
+
+  mat-card-actions {
+    display: flex;
+    justify-content: flex-end;
+    padding: 16px;
   }
 }
