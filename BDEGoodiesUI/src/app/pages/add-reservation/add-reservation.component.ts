@@ -41,6 +41,7 @@ export class AddReservationComponent {
   ngOnInit(): void {
     this.initForm();
     this.loadData();
+    this.getEvent();
   }
 
   private loadData(): void {
@@ -71,6 +72,13 @@ export class AddReservationComponent {
       goodieId: [''],
       quantity: [1, [Validators.min(1), Validators.max(10)]],
     });
+  }
+
+  private getEvent(): void {
+    const id = parseInt(this.route.snapshot.params['id']);
+    this.eventService.getEvenementById(id).subscribe(data => {
+        this.evenement = data;
+    })
   }
 
   addGoodie(): void {

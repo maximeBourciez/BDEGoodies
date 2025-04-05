@@ -1,3 +1,69 @@
-.spacer{
+.main-toolbar {
+  padding: 0 16px;
+
+  .toolbar-container {
+    width: 100%;
+    display: flex;
+    align-items: center;
+  }
+
+  .app-name {
+    font-size: 1.2rem;
+    font-weight: 500;
+  }
+
+  .spacer {
     flex: 1 1 auto;
+  }
+
+  .nav-buttons {
+    display: flex;
+
+    button {
+      white-space: nowrap;
+    }
+  }
+
+  .menu-button {
+    display: none;
+  }
+}
+
+.mobile-menu {
+  background: #3f51b5;
+  display: none;
+  flex-direction: column;
+  overflow: hidden;
+  max-height: 0;
+  width: 100%;
+  transition: max-height 0.3s ease;
+
+  &.visible {
+    display: flex;
+    max-height: 200px; /* Ajustez selon le contenu */
+  }
+
+  button {
+    color: white;
+    width: 100%;
+    text-align: left;
+    padding: 12px 16px;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .main-toolbar {
+    .nav-buttons {
+      display: none;
+    }
+
+    .menu-button {
+      display: block;
+    }
+  }
 }

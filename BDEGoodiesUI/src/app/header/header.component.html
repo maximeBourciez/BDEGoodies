@@ -1,11 +1,23 @@
-<mat-toolbar color="primary">
+<mat-toolbar color="primary" class="main-toolbar">
+  <div class="toolbar-container">
     <span class="app-name">BDEGoodies</span>
-
     <span class="spacer"></span>
 
     <div class="nav-buttons">
-        <button mat-button routerLink="/">Accueil</button>
-        <button mat-button routerLink="/events">Évènements</button>
-        <button mat-button routerLink="/goodies">Goodies</button>
+      <button mat-button routerLink="/">Accueil</button>
+      <button mat-button routerLink="/events">Évènements</button>
+      <button mat-button routerLink="/goodies">Goodies</button>
     </div>
+
+    <button mat-icon-button class="menu-button" (click)="toggleMenu()">
+      <mat-icon>menu</mat-icon>
+    </button>
+  </div>
 </mat-toolbar>
+
+<!-- Menu mobile en dessous, dans le flux normal -->
+<div class="mobile-menu" [class.visible]="menuVisible">
+  <button mat-button routerLink="/" (click)="toggleMenu()">Accueil</button>
+  <button mat-button routerLink="/events" (click)="toggleMenu()">Évènements</button>
+  <button mat-button routerLink="/goodies" (click)="toggleMenu()">Goodies</button>
+</div>

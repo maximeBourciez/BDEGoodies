@@ -1,0 +1,58 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.mat-mdc-select-panel {
+  background: white !important;
+}
+.mat-mdc-select-panel .mat-mdc-option {
+  background: white !important;
+}
+.mat-mdc-select-panel .mat-mdc-option:hover {
+  background: rgba(0, 0, 0, 0.04) !important;
+}
+.mat-mdc-select-panel .mat-mdc-option.mat-mdc-option-active {
+  background: rgba(0, 0, 0, 0.04) !important;
+}
+
+.mat-datepicker-content,
+.mat-datepicker-content .mat-calendar {
+  background-color: white !important;
+  color: black !important;
+}
+
+.mat-mdc-datepicker-content,
+.mat-mdc-datepicker-content .mat-calendar {
+  background-color: white !important;
+  color: black !important;
+}
+
+.mdc-datepicker-content,
+.mdc-datepicker-content .mat-calendar {
+  background-color: white !important;
+  color: black !important;
+}
+
+.title {
+  color: #3f51b5;
+  margin-bottom: 20px;
+}
+
+mat-button {
+  background-color: #3f51b5;
+  color: white;
+  font-weight: bold;
+  border-radius: 50%;
+  margin: 5px 10px;
+  width: 50px;
+  height: 50px;
+  align-content: center;
+  justify-content: center;
+  padding: 10px 10px;
+}
+mat-button:hover {
+  background-color: #303f9f;
+}
+
+/*# sourceMappingURL=styles.css.map */
