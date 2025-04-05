@@ -133,7 +133,6 @@ export class AddReservationComponent {
     const reservationData= new Reservation(0, this.form.value.studentId, eventId, new Date(), this.form.value.statut as StatutReservation);
 
 
-    console.log(reservationData);
 
     this.reservationService.create(reservationData).subscribe({
       next: (reservation: Reservation) => {

@@ -102,7 +102,6 @@ export class EvenementComponent {
           this.loadReservations();
         },
         error: (err: any) => {
-          console.error('Erreur lors de la suppression', err);
           this.snackBar.open('Erreur lors de la suppression', 'Fermer', { duration: 3000 });
         }
       });
