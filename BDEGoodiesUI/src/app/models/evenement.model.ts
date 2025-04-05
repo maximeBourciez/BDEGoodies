@@ -30,15 +30,5 @@ export class Evenement{
     this.theme = theme;
   }
 
-  // Optional: Add a method to convert to API-ready JSON
-  toApiJson(): any {
-    return {
-      nom: this.nom,
-      lieu: this.lieu,
-      dateHeure: this.dateHeure.toISOString(),
-      prix: this.prix,
-      capacite: this.capacite,
-      theme: this.theme
-    };
-  }
+
 }

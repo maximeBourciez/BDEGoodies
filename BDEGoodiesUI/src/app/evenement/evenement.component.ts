@@ -14,7 +14,16 @@ import {MatSnackBar} from '@angular/material/snack-bar';
   styleUrl: './evenement.component.scss'
 })
 export class EvenementComponent {
-  @Input() event!: Evenement;
+  @Input() event: Evenement = {
+    idEvenement: 0,
+    nom: '',
+    dateHeure: new Date(),
+    lieu: '',
+    capacite: 0,
+    prix: 0,
+    theme: "",
+    inscrits: [],
+  };
   isListView: boolean = true;
   private readonly eventService: EvenementsService = inject(EvenementsService);
   private readonly reservationService: ReservationsService = inject(ReservationsService);
@@ -32,35 +41,35 @@ export class EvenementComponent {
 
   // Méthodes
   ngOnInit() {
+    // Initialiser dataSource avec un tableau vide
+    this.dataSource = new MatTableDataSource<any>([]);
+
     // Récupération de l'article via son id
     const idParam = this.router.snapshot.paramMap.get('id');
 
     // Si on est sur les détails d'un evt
     if (idParam !== null) {
-      console.log(idParam);
       const id = parseInt(idParam, 10);
       this.eventService.getEvenementById(id).subscribe(donnees => {
         this.event = donnees;
+        // S'assurer que event.inscrits existe (initialiser si nécessaire)
+        if (!this.event.inscrits) {
+          this.event.inscrits = [];
+        }
 
         // Changer l'état de liste
         this.isListView = false;
 
         // Charger les personnes inscrites
         this.loadReservations();
-
-        // Initialiser la liste
-        this.dataSource = new MatTableDataSource<any>(this.event.inscrits);
       });
     }
-
-
   }
 
   // Chargement des inscrits
   loadReservations() {
     this.eventService.getInscriptions(this.event.idEvenement).subscribe(reservations => {
       // Mapper les réservations pour inclure à la fois l'étudiant et le statut
-      console.log(reservations);
       this.event.inscrits = reservations.map(reservation => {
         return {
           ...reservation.etudiant,
@@ -68,8 +77,8 @@ export class EvenementComponent {
           idReservation: reservation.idReservation,
         };
       });
-      console.log(this.event.inscrits);
-      this.dataSource = new MatTableDataSource<any>(this.event.inscrits);
+      // Mettre à jour les données de dataSource
+      this.dataSource.data = this.event.inscrits;
     });
   }
 
