@@ -32,4 +32,12 @@ export class EvenementsService {
   delete(idEvenement: number, idEtudiant: number):Observable<void>{
     return this.http.delete<void>(`${this.apiUrl}/${idEvenement}/etudiants/${idEtudiant}`);
   }
+
+  // Créer un évènement
+  createEvent(event: Evenement): Observable<Evenement> {
+    return this.http.post<Evenement>(this.apiUrl, {
+      ...event,
+      dateHeure: event.dateHeure 
+    });
+  }
 }
