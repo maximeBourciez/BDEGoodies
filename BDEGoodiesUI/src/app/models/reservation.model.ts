@@ -1,3 +1,4 @@
+import {Etudiant} from './etudiant.model';
 
 export enum StatutReservation{
     EnAttente = "En attente",
@@ -12,6 +13,7 @@ export class Reservation{
     idEvenement: number;
     dateReservation: Date;
     statut: StatutReservation;
+    etudiant!: Etudiant;
 
     // Constructeur
     constructor(id: number, idEtudiant: number, idEvenement: number, dateReservation: Date, statut: StatutReservation){
@@ -20,5 +22,10 @@ export class Reservation{
         this.idEvenement = idEvenement;
         this.dateReservation = dateReservation;
         this.statut = statut;
+    }
+
+    // Méthodes
+    setEtudiant(etudiant: Etudiant){
+      this.etudiant = etudiant;
     }
 }

@@ -126,26 +126,27 @@
                 <mat-cell *matCellDef="let etudiant"> {{etudiant.telephone}} </mat-cell>
               </ng-container>
 
-              <!-- Colonne Statut -->
+              <!-- Colonne Statut - Modifiez comme ceci -->
               <ng-container matColumnDef="statut">
                 <mat-header-cell *matHeaderCellDef> Statut </mat-header-cell>
                 <mat-cell *matCellDef="let etudiant">
                   <mat-chip-listbox>
-                    <mat-chip [color]="getStatutColor(etudiant.idEtudiant)" selected>
+                    <mat-chip [color]="getStatutColor(etudiant.statut)" selected>
                       {{etudiant.statut}}
                     </mat-chip>
                   </mat-chip-listbox>
                 </mat-cell>
               </ng-container>
 
-              <!-- Colonne Actions -->
+              <!-- Colonne Actions - Modifiez comme ceci -->
               <ng-container matColumnDef="actions">
                 <mat-header-cell *matHeaderCellDef> Actions </mat-header-cell>
                 <mat-cell *matCellDef="let etudiant">
-                  <button mat-icon-button color="warn" (click)="deleteInscription(etudiant.idEtudiant)">
+                  <button mat-icon-button color="warn" (click)="deleteInscription(etudiant.idReservation)">
                     <mat-icon>delete</mat-icon>
                   </button>
-                  <button mat-icon-button color="warn" routerLink="reservation/">
+                  <button mat-icon-button color="primary"
+                          [routerLink]="'/event/' + event.idEvenement + '/edit-reservation/' + etudiant.idReservation">
                     <mat-icon>edit</mat-icon>
                   </button>
                 </mat-cell>

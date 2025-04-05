@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Evenement;
+use App\Models\Reservation;
 
 class EvenementsController extends Controller
 {
@@ -108,6 +109,16 @@ class EvenementsController extends Controller
         }
 
         return response()->json($evenement->etudiants);
+    }
+
+
+    public function getReservationsWithEtudiants($idEvenement)
+    {
+        $reservations = Reservation::with('etudiant')
+            ->where('idEvenement', $idEvenement)
+            ->get();
+
+        return response()->json($reservations);
     }
     
 }

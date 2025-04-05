@@ -130,13 +130,8 @@ export class AddReservationComponent {
 
     this.isLoading = true;
 
-    const reservationData: Reservation = {
-      idReservation: 0,
-      idEtudiant: this.form.value.studentId,
-      idEvenement: eventId,
-      dateReservation: new Date(),
-      statut: this.form.value.statut as StatutReservation
-    };
+    const reservationData= new Reservation(0, this.form.value.studentId, eventId, new Date(), this.form.value.statut as StatutReservation);
+
 
     console.log(reservationData);
 

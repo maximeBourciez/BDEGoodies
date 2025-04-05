@@ -3,6 +3,7 @@ import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Evenement } from '../models/evenement.model';
 import { Etudiant } from '../models/etudiant.model';
+import {Reservation} from '../models/reservation.model';
 
 @Injectable({
   providedIn: 'root'
@@ -24,8 +25,8 @@ export class EvenementsService {
   }
 
   // R&cupérer les inscrits
-  getInscriptions(id: number):Observable<Etudiant[]>{
-    return this.http.get<Etudiant[]>(`${this.apiUrl}/${id}/etudiants`);
+  getInscriptions(id: number): Observable<Reservation[]> {
+    return this.http.get<Reservation[]>(`${this.apiUrl}/${id}/reservations`);
   }
 
   // Désinscrire un étudiant

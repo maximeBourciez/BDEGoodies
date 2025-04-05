@@ -55,8 +55,16 @@ export class EvenementComponent {
 
   // Chargement des inscrits
   loadReservations() {
-    this.eventService.getInscriptions(this.event.idEvenement).subscribe(inscriptions => {
-      this.event.inscrits = inscriptions;
+    this.eventService.getInscriptions(this.event.idEvenement).subscribe(reservations => {
+      // Mapper les réservations pour inclure à la fois l'étudiant et le statut
+      console.log(reservations);
+      this.event.inscrits = reservations.map(reservation => {
+        return {
+          ...reservation.etudiant,
+          statut: reservation.statut
+        };
+      });
+      this.dataSource = new MatTableDataSource<any>(this.event.inscrits);
     });
   }
 

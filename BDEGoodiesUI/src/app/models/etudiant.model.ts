@@ -1,11 +1,14 @@
+import {StatutReservation} from './reservation.model';
+
 export class Etudiant{
-    // Attributs 
+    // Attributs
     idEtudiant: number;
     nom: string;
     mail: string;
     telephone: string;
+    statut?: StatutReservation;
 
-    // Constructeur
+  // Constructeur
     constructor(id: number, nom: string, email: string, telephone: string, annee: number){
         this.idEtudiant = id;
         this.nom = nom;
