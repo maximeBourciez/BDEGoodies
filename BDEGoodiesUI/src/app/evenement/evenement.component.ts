@@ -4,6 +4,8 @@ import { EvenementsService } from '../services/evenements.service';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { MatTableDataSource } from '@angular/material/table';
+import {ReservationsService} from '../services/reservations.service';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-evenement',
@@ -15,10 +17,11 @@ export class EvenementComponent {
   @Input() event!: Evenement;
   isListView: boolean = true;
   private readonly eventService: EvenementsService = inject(EvenementsService);
+  private readonly reservationService: ReservationsService = inject(ReservationsService);
   private readonly router: ActivatedRoute = inject(ActivatedRoute);
+  private readonly snackBar: MatSnackBar = inject(MatSnackBar);
 
   displayedColumns: string[] = ['nom', 'mail', 'telephone', 'statut', 'actions'];
-  snackBar: any;
 
   searchText: string = '';
   dataSource!: MatTableDataSource<any>;
@@ -61,9 +64,11 @@ export class EvenementComponent {
       this.event.inscrits = reservations.map(reservation => {
         return {
           ...reservation.etudiant,
-          statut: reservation.statut
+          statut: reservation.statut,
+          idReservation: reservation.idReservation,
         };
       });
+      console.log(this.event.inscrits);
       this.dataSource = new MatTableDataSource<any>(this.event.inscrits);
     });
   }
@@ -80,9 +85,9 @@ export class EvenementComponent {
     }
   }
 
-  deleteInscription(idEtudiant: number): void {
+  deleteInscription(idReservation: number): void {
     if (confirm('Êtes-vous sûr de vouloir supprimer cette inscription ?')) {
-      this.eventService.delete(this.event.idEvenement, idEtudiant).subscribe({
+      this.reservationService.deleteReservation(idReservation).subscribe({
         next: () => {
           this.snackBar.open('Inscription supprimée avec succès', 'Fermer', { duration: 3000 });
           this.loadReservations();

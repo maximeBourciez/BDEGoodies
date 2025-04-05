@@ -24,6 +24,11 @@ export class ReservationsService {
     return this.http.post<GoodieReservation>(`${this.API_URL}/goodies`, resa);
   }
 
+  // Supprimer une reservation via son id
+  deleteReservation(idReservation: number) : Observable<Reservation> {
+    return this.http.delete<Reservation>(this.API_URL + '/' + idReservation );
+  }
+
   checkExistingReservation(studentId: number, eventId: number): Observable<boolean> {
     return this.http.get<boolean>(`${this.API_URL}/exists`, {
       params: {

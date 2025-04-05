@@ -1,0 +1,136 @@
+.container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.title-block {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.title-block .title {
+  font-size: 2rem;
+  font-weight: 500;
+  color: #3f51b5;
+}
+.title-block button mat-icon {
+  margin-right: 8px;
+}
+
+.filters-card {
+  margin-bottom: 2rem;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e0e0e0;
+  transition: box-shadow 0.3s ease;
+}
+.filters-card:hover {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+}
+.filters-card .filters-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: flex-end;
+  padding: 1.5rem;
+}
+.filters-card .filters-container mat-form-field {
+  flex: 1 1 220px;
+  min-width: 220px;
+}
+.filters-card .filters-container mat-form-field .mat-form-field-wrapper {
+  border-radius: 8px;
+  background: #f5f5f5;
+  transition: background 0.3s ease;
+}
+.filters-card .filters-container mat-form-field .mat-form-field-wrapper:hover {
+  background: #eeeeee;
+}
+.filters-card .filters-container mat-form-field .mat-form-field-outline {
+  color: rgba(0, 0, 0, 0.12);
+}
+.filters-card .filters-container mat-form-field.mat-focused .mat-form-field-outline-thicker {
+  color: #3f51b5;
+}
+.filters-card .filters-container .reset-btn {
+  height: 56px;
+  border-radius: 8px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  border: 1px solid #e0e0e0;
+  background: #f5f5f5;
+  color: #424242;
+}
+.filters-card .filters-container .reset-btn:hover {
+  background: #e0e0e0;
+  color: #212121;
+}
+.filters-card .filters-container .reset-btn mat-icon {
+  margin-right: 8px;
+  font-size: 18px;
+  height: 18px;
+  width: 18px;
+}
+@media (max-width: 768px) {
+  .filters-card .filters-container {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .filters-card .filters-container mat-form-field {
+    min-width: 100%;
+  }
+  .filters-card .filters-container .reset-btn {
+    width: 100%;
+  }
+}
+
+.grid-item {
+  transition: transform 0.3s ease;
+}
+.grid-item:hover {
+  transform: scale(1.02);
+  z-index: 1;
+}
+
+.text-center {
+  text-align: center;
+  margin-top: 30px;
+}
+
+.no-results {
+  text-align: center;
+  padding: 40px 0;
+  color: #757575;
+}
+.no-results mat-icon {
+  font-size: 50px;
+  width: 50px;
+  height: 50px;
+  margin-bottom: 20px;
+  color: #9e9e9e;
+}
+.no-results p {
+  font-size: 1.2rem;
+}
+
+.container {
+  max-width: 1200px;
+  margin: auto;
+  text-align: center;
+}
+
+.grid-item {
+  display: flex;
+  justify-content: center;
+}
+
+.title-block {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+}
+
+/*# sourceMappingURL=list-evenements.component.css.map */

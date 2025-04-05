@@ -3,7 +3,7 @@
         <mat-card class="evenement-card">
             <mat-card-header>
                 <mat-card-title>{{ event.nom }}</mat-card-title>
-                <mat-card-subtitle>{{ (event.dateHeure | date:'shortDate') }} - {{ event.lieu }}</mat-card-subtitle>
+                <mat-card-subtitle>{{ (event.dateHeure | date:'dd/MM/yyyy') }} - {{ event.lieu }}</mat-card-subtitle>
             </mat-card-header>
             <mat-card-content>
                 <p class="theme">
@@ -106,7 +106,7 @@
             </div>
 
             <!-- Tableau (seulement visible s'il y a des inscrits) -->
-            <mat-table [dataSource]="event.inscrits" class="mat-elevation-z8"
+            <mat-table [dataSource]="dataSource" class="mat-elevation-z8"
                        *ngIf="event.inscrits && event.inscrits.length > 0">
               <!-- Colonne Nom -->
               <ng-container matColumnDef="nom">
