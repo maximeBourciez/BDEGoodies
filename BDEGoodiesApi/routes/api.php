@@ -11,5 +11,4 @@ Route::apiResource('evenements', Controllers\EvenementsController::class);
 Route::apiResource('reservations', Controllers\ReservationsController::class);
 Route::apiResource('goodies', Controllers\GoodiesController::class);
 Route::get('/evenements/{id}/etudiants', [Controllers\EvenementsController::class, 'getEtudiantsInscrits']);
-
-Route::get('/exists', [Controllers\ReservationsController::class, 'checkExisting']);
+Route::post('/reservations/goodies', [Controllers\ReservationGoodiesController::class, 'reserveGoodies']);

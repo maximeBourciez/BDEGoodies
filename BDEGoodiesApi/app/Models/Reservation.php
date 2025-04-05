@@ -53,17 +53,4 @@ class Reservation extends Model
             ->withPivot('quantite');
     }
     
-// In your ReservationsController
-public function checkExisting(Request $request)
-{
-    $request->validate([
-        'studentId' => 'required|integer',
-        'eventId' => 'required|integer'
-    ]);
-
-    $exists = Reservation::where('idEtudiant', $request->studentId)
-                        ->where('idEvenement', $request->eventId)
-                        ->exists();
-
-    return response()->json($exists);
-}}
+}
