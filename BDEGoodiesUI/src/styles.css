@@ -55,4 +55,19 @@ mat-button:hover {
   background-color: #303f9f;
 }
 
+.title-block {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.title-block .title {
+  font-size: 2rem;
+  font-weight: 500;
+  color: #3f51b5;
+}
+.title-block button mat-icon {
+  margin-right: 8px;
+}
+
 /*# sourceMappingURL=styles.css.map */

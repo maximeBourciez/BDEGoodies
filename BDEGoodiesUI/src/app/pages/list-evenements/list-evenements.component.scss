@@ -4,24 +4,7 @@
     margin: 0 auto;
 }
 
-.title-block {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
 
-    .title {
-        font-size: 2rem;
-        font-weight: 500;
-        color: #3f51b5;
-    }
-
-    button {
-        mat-icon {
-            margin-right: 8px;
-        }
-    }
-}
 
 .filters-card {
     margin-bottom: 2rem;

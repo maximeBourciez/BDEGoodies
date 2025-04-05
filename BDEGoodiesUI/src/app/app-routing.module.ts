@@ -6,6 +6,7 @@ import { ListGoodiesComponent } from './pages/list-goodies/list-goodies.componen
 import { EvenementComponent } from './evenement/evenement.component';
 import { AddReservationComponent } from './pages/add-reservation/add-reservation.component';
 import { AddEvenementComponent } from './pages/add-evenement/add-evenement.component';
+import {AddGoodieComponent} from './pages/add-goodie/add-goodie.component';
 
 const routes: Routes = [
   {path: '', redirectTo: '/home', pathMatch: 'full'},
@@ -13,6 +14,7 @@ const routes: Routes = [
 
   // Goodies
   { path: 'goodies', component: ListGoodiesComponent },
+  { path: 'add-goodie', component: AddGoodieComponent },
 
   // Réservations
   { path: 'event/:id/addetudiant', component: AddReservationComponent },

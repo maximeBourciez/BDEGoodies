@@ -35,6 +35,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { AddEvenementComponent } from './pages/add-evenement/add-evenement.component';
+import { AddGoodieComponent } from './pages/add-goodie/add-goodie.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import { AddEvenementComponent } from './pages/add-evenement/add-evenement.compo
     ListGoodiesComponent,
     AddReservationComponent,
     AddEvenementComponent,
+    AddGoodieComponent,
   ],
   imports: [
 

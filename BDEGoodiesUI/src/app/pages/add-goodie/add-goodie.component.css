@@ -1,0 +1,51 @@
+.goodie-form-container {
+  display: flex;
+  justify-content: center;
+  padding: 24px;
+}
+.goodie-form-container mat-card {
+  max-width: 600px;
+  width: 100%;
+}
+.goodie-form-container mat-card-header {
+  margin-bottom: 16px;
+}
+.goodie-form-container mat-card-title {
+  color: #3f51b5;
+  font-size: 1.5rem;
+}
+.goodie-form-container mat-card-content {
+  padding: 0 16px;
+}
+.goodie-form-container .full-width {
+  width: 100%;
+  margin-bottom: 16px;
+}
+.goodie-form-container mat-card-actions {
+  padding: 16px;
+  display: flex;
+  gap: 12px;
+}
+
+/* Styles responsifs */
+@media (max-width: 768px) {
+  .goodie-form-container {
+    padding: 16px;
+  }
+}
+@media (max-width: 480px) {
+  .goodie-form-container {
+    padding: 10px;
+  }
+  .goodie-form-container mat-card-title {
+    font-size: 1.2rem;
+  }
+  .goodie-form-container mat-card-actions {
+    flex-direction: column-reverse;
+  }
+  .goodie-form-container mat-card-actions button {
+    width: 100%;
+  }
+}
+
+/*# sourceMappingURL=add-goodie.component.css.map */

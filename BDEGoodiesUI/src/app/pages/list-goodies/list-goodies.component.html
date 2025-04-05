@@ -1,6 +1,11 @@
 <div class="container">
     <div class=""></div>
-    <h2>Liste des goodies</h2>
+    <div class="title-block">
+      <h1 class="title">Liste des goodies</h1>
+      <button mat-raised-button routerLink="/add-goodie" color="primary">
+        <mat-icon>add</mat-icon> Ajouter
+      </button>
+    </div>
 
     <mat-grid-list cols="3" rowHeight="1:1" gutterSize="16px">
         @for (goodie of goodies; track goodie.idGoodie) {

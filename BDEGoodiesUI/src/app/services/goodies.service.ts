@@ -22,4 +22,9 @@ export class GoodiesService {
   updateGoodie(goodie: Goodie){
     return this.http.put<Goodie>(this.apiUrl + '/' + goodie.idGoodie, goodie);
   }
+
+  // Ajout d'un goodie à la bd
+  createGoodie(goodie: Goodie){
+    return this.http.post(this.apiUrl, goodie);
+  }
 }

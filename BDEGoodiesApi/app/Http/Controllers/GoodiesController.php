@@ -35,8 +35,10 @@ class GoodiesController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'quantity' => 'required|integer|min:0',
+            'nom' => 'required|string|max:255',
+            'quantite' => 'required|integer|min:0',
+            'description' => 'nullable|string|max:1000',
+            'coutUnitaire' => 'nullable|numeric|min:0',
         ]);
 
         $goodie = Goodie::create($validated);
