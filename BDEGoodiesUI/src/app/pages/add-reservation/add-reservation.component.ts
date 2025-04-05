@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Evenement } from '../../models/evenement.model';
 import { Goodie } from '../../models/goodie.model';
@@ -9,95 +9,98 @@ import { GoodiesService } from '../../services/goodies.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Reservation, StatutReservation } from '../../models/reservation.model';
 import { ReservationsService } from '../../services/reservations.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { GoodieReservation } from '../../models/goodieReservation.model';
+import {forkJoin} from 'rxjs';
 
 @Component({
   selector: 'app-add-reservation',
-  standalone: false,
   templateUrl: './add-reservation.component.html',
-  styleUrls: ['./add-reservation.component.scss']
+  styleUrls: ['./add-reservation.component.scss'],
+  standalone: false
 })
 export class AddReservationComponent {
+  @Input() evenement!: Evenement;
   private readonly fb: FormBuilder = inject(FormBuilder);
   private readonly eventService: EvenementsService = inject(EvenementsService);
   private readonly studentService: EtudiantsService = inject(EtudiantsService);
   private readonly goodieService: GoodiesService = inject(GoodiesService);
   private readonly reservationService: ReservationsService = inject(ReservationsService);
   private readonly snackBar: MatSnackBar = inject(MatSnackBar);
+  private readonly route: ActivatedRoute = inject(ActivatedRoute);
   private readonly router: Router = inject(Router);
 
-  // Attributs
-  events: Evenement[] = [];
+  // Attributes
   goodies: Goodie[] = [];
   students: Etudiant[] = [];
-  selectedGoodies: {goodie: Goodie, quantity: number}[] = [];
+  selectedGoodies: { goodie: Goodie, quantity: number }[] = [];
   form!: FormGroup;
   isLoading = false;
-  statuts: string[] = [];
+  statuts = Object.values(StatutReservation);
 
   ngOnInit(): void {
-    this.loadData();
     this.initForm();
+    this.loadData();
   }
 
-  loadData(): void {
+  private loadData(): void {
     this.isLoading = true;
 
-    // Charger les évènements
-    this.eventService.getEvenements().subscribe({
-      next: events => this.events = events,
-      error: () => this.showError('Erreur lors du chargement des événements')
-    });
-
-    // Charger les goodies
-    this.goodieService.getGoodies().subscribe({
-      next: goodies => this.goodies = goodies,
-      error: () => this.showError('Erreur lors du chargement des goodies')
-    });
-
-    // Charger les étudiants
-    this.studentService.getEtudiants().subscribe({
-      next: students => {
+    // Load goodies and students in parallel
+    forkJoin([
+      this.goodieService.getGoodies(),
+      this.studentService.getEtudiants()
+    ]).subscribe({
+      next: ([goodies, students]) => {
+        this.goodies = goodies;
         this.students = students;
         this.isLoading = false;
       },
-      error: () => {
-        this.showError('Erreur lors du chargement des étudiants');
+      error: (error) => {
+        console.error('Error loading data:', error);
+        this.showError('Erreur lors du chargement des données');
         this.isLoading = false;
       }
     });
-
-    // Charger les statuts
-    this.statuts = Object.values(StatutReservation);
   }
 
-  initForm(): void {
+  private initForm(): void {
     this.form = this.fb.group({
-      eventId: ['', Validators.required],
       studentId: ['', Validators.required],
       statut: [StatutReservation.EnAttente, Validators.required],
       goodieId: [''],
-      quantity: [1, [Validators.min(1)]],
-      commentaire: ['']
+      quantity: [1, [Validators.min(1), Validators.max(10)]],
     });
   }
 
   addGoodie(): void {
-    if (this.form.get('goodieId')?.invalid || this.form.get('quantity')?.invalid) {
-      this.snackBar.open('Veuillez sélectionner un goodie et une quantité valide', 'Fermer', {duration: 2000});
+    const goodieControl = this.form.get('goodieId');
+    const quantityControl = this.form.get('quantity');
+
+    if (!goodieControl?.value || quantityControl?.invalid) {
+      this.snackBar.open('Veuillez sélectionner un goodie et une quantité valide', 'Fermer', { duration: 2000 });
       return;
     }
 
-    const goodieId = this.form.value.goodieId;
-    const quantity = this.form.value.quantity;
-    const goodie = this.goodies.find(g => g.idGoodie === goodieId);
+    const goodie = this.goodies.find(g => g.idGoodie === goodieControl.value);
+    if (!goodie) return;
 
-    if (goodie && !this.selectedGoodies.some(item => item.goodie.idGoodie === goodieId)) {
-      this.selectedGoodies.push({ goodie, quantity });
-      this.form.get('goodieId')?.reset();
-      this.form.get('quantity')?.setValue(1);
+    // Check if goodie already added
+    const existingIndex = this.selectedGoodies.findIndex(item => item.goodie.idGoodie === goodie.idGoodie);
+    if (existingIndex >= 0) {
+      this.selectedGoodies[existingIndex].quantity += quantityControl?.value;
+    } else {
+      this.selectedGoodies.push({
+        goodie,
+        quantity: quantityControl?.value
+      });
     }
+
+    // Reset form controls
+    this.form.patchValue({
+      goodieId: '',
+      quantity: 1
+    });
   }
 
   removeGoodie(index: number): void {
@@ -105,40 +108,68 @@ export class AddReservationComponent {
   }
 
   onSubmit(): void {
-    if (this.form.get('eventId')?.invalid || 
-      this.form.get('studentId')?.invalid || 
-      this.form.get('statut')?.invalid) {
-    this.markAllAsTouched();
-    return;
-  }
+    if (this.form.invalid) {
+      this.markAllAsTouched();
+      this.snackBar.open('Veuillez remplir tous les champs obligatoires', 'Fermer', { duration: 3000 });
+      return;
+    }
 
-  // Récupération du statut sélectionné et conversion en StatutReservation
-  const selectedStatut: StatutReservation = this.form.value.statut as StatutReservation;
+    const eventId = parseInt(this.route.snapshot.paramMap.get('id') || '0');
+    if (isNaN(eventId)) {
+      this.showError('ID d\'événement invalide');
+      return;
+    }
+
+    this.isLoading = true;
 
     const reservationData: Reservation = {
       idReservation: 0,
       idEtudiant: this.form.value.studentId,
-      idEvenement: this.form.value.eventId,
+      idEvenement: eventId,
       dateReservation: new Date(),
-      statut: selectedStatut,
-      
+      statut: this.form.value.statut as StatutReservation
     };
 
-    this.isLoading = true;
+    console.log(reservationData);
+
     this.reservationService.create(reservationData).subscribe({
-      next: (reservation : Reservation) => {
-        this.snackBar.open('Réservation créée avec succès', 'Fermer', { duration: 3000 });
-        this.router.navigate(['/event', reservation.idEvenement]);
+      next: (reservation: Reservation) => {
+        if (this.selectedGoodies.length > 0) {
+          this.createGoodieReservations(reservation.idReservation);
+        } else {
+          this.handleSuccess(reservation);
+        }
       },
-      error: (error : Error) => {
-        console.error('Erreur lors de la création de la réservation:', error);
-        this.snackBar.open('Erreur lors de la création de la réservation', 'Fermer', { duration: 3000 });
-        this.isLoading = false;
-      }
+      error: (error) => this.handleError(error, 'Erreur lors de la création de la réservation')
+    });
+  }
+
+  private createGoodieReservations(reservationId: number): void {
+    const requests = this.selectedGoodies.map(item => {
+      const goodieReservation = new GoodieReservation(
+        reservationId,
+        item.goodie.idGoodie,
+        item.quantity
+      );
+      return this.reservationService.createGoodieReservation(goodieReservation);
     });
 
-    // Créer les réservations de goodies
-    this.createReservationGoodies(this.selectedGoodies, reservationData.idReservation);
+    forkJoin(requests).subscribe({
+      next: () => this.handleSuccess(),
+      error: (error) => this.handleError(error, 'Erreur lors de la création des réservations de goodies')
+    });
+  }
+
+  private handleSuccess(reservation?: Reservation): void {
+    this.snackBar.open('Réservation créée avec succès', 'Fermer', { duration: 3000 });
+    this.router.navigate(['/event', reservation?.idEvenement || this.evenement.idEvenement]);
+    this.isLoading = false;
+  }
+
+  private handleError(error: any, message: string): void {
+    console.error(message, error);
+    this.snackBar.open(message, 'Fermer', { duration: 3000 });
+    this.isLoading = false;
   }
 
   private showError(message: string): void {
@@ -146,23 +177,8 @@ export class AddReservationComponent {
   }
 
   private markAllAsTouched(): void {
-    Object.keys(this.form.controls).forEach(key => {
-      this.form.get(key)?.markAsTouched();
-    });
-  }
-
-  private createReservationGoodies(selectedGoodies: {goodie: Goodie, quantity: number}[], reservationId: number): void {
-    selectedGoodies.forEach(item => {
-      const goodieReservation = new GoodieReservation(reservationId, item.goodie.idGoodie, item.quantity);
-      this.reservationService.createGoodieReservation(goodieReservation).subscribe({
-        next: () => {
-          this.snackBar.open('Réservation de goodies créée avec succès', 'Fermer', { duration: 3000 });
-        },
-        error: (error : Error) => {
-          console.error('Erreur lors de la création de la réservation de goodies:', error);
-          this.snackBar.open('Erreur lors de la création de la réservation de goodies', 'Fermer', { duration: 3000 });
-        }
-      });
+    Object.values(this.form.controls).forEach(control => {
+      control.markAsTouched();
     });
   }
 }

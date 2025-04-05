@@ -2,19 +2,6 @@
     <h2 class="title">Créer une nouvelle réservation</h2>
 
     <form [formGroup]="form" (ngSubmit)="onSubmit()">
-        <!-- Sélection d'événement -->
-        <mat-form-field appearance="fill">
-            <mat-label>Événement</mat-label>
-            <mat-select formControlName="eventId" required>
-                <mat-option *ngFor="let event of events" [value]="event.idEvenement">
-                    {{event.nom}} - {{event.dateHeure | date:'shortDate'}}
-                </mat-option>
-            </mat-select>
-            <mat-error *ngIf="form.get('eventId')?.hasError('required')">
-                Ce champ est obligatoire
-            </mat-error>
-        </mat-form-field>
-
         <!-- Sélection d'étudiant -->
         <mat-form-field appearance="fill">
             <mat-label>Étudiant</mat-label>

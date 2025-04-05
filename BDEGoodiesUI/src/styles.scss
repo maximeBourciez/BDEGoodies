@@ -16,6 +16,29 @@
     }
 }
 
+/* Ajoutez ceci dans styles.scss à la racine du projet */
+
+/* Pour Angular Material v13+ */
+.mat-datepicker-content,
+.mat-datepicker-content .mat-calendar {
+  background-color: white !important;
+  color: black !important;
+}
+
+/* Pour Angular Material v14+ avec MDC */
+.mat-mdc-datepicker-content,
+.mat-mdc-datepicker-content .mat-calendar {
+  background-color: white !important;
+  color: black !important;
+}
+
+/* Pour les versions les plus récentes */
+.mdc-datepicker-content,
+.mdc-datepicker-content .mat-calendar {
+  background-color: white !important;
+  color: black !important;
+}
+
 .title {
     color: #3f51b5;
   margin-bottom: 20px;

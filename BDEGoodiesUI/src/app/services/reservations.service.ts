@@ -8,7 +8,7 @@ import { GoodieReservation } from '../models/goodieReservation.model';
   providedIn: 'root'
 })
 export class ReservationsService {
-  // Attributs 
+  // Attributs
   private readonly API_URL = 'http://localhost:8000/api/reservations';
   private readonly http: HttpClient = inject(HttpClient);
 
@@ -22,5 +22,14 @@ export class ReservationsService {
   // Créer la réservation de goodie
   createGoodieReservation(resa: GoodieReservation) : Observable<GoodieReservation> {
     return this.http.post<GoodieReservation>(`${this.API_URL}/goodies`, resa);
+  }
+
+  checkExistingReservation(studentId: number, eventId: number): Observable<boolean> {
+    return this.http.get<boolean>(`${this.API_URL}/exists`, {
+      params: {
+        studentId: studentId.toString(),
+        eventId: eventId.toString()
+      }
+    });
   }
 }

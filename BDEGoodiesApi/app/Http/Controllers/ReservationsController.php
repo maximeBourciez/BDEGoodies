@@ -134,4 +134,19 @@ class ReservationsController extends Controller
 
         return response()->json($reservations);
     }
+
+    // In your ReservationsController
+    public function checkExisting(Request $request)
+    {
+        $request->validate([
+            'idEtudiant' => 'required|integer',
+            'idEvenement' => 'required|integer'
+        ]);
+
+        $exists = Reservation::where('idEtudiant', $request->idEtudiant)
+            ->where('idEvenement', $request->idEvenement)
+            ->exists();
+
+        return response()->json($exists);
+    }
 }

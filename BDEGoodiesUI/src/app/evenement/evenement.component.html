@@ -77,68 +77,84 @@
                     aliquip ex ea commodo consequat.</p>
             </div>
 
-            <div class="inscrits-section" *ngIf="event.inscrits && event.inscrits.length > 0">
-                <div class="table-header">
-                    <div class="header-left">
-                        <h2 class="title">Liste des participants</h2>
-                        <!-- Barre de recherche -->
-                        <mat-form-field appearance="outline" class="search-bar">
-                            <mat-label>Rechercher un participant</mat-label>
-                            <input matInput [(ngModel)]="searchText" (input)="applyFilter()" placeholder="Nom, email...">
-                            <mat-icon matSuffix>search</mat-icon>
-                        </mat-form-field>
-                    </div>
-                    <button mat-icon-button class="round-button"
-                        [routerLink]="'/event/' + event.idEvenement + '/addetudiant'" aria-label="Ajouter étudiant">
-                        <mat-icon>add</mat-icon>
-                    </button>
-                </div>
-
-                <mat-table [dataSource]="event.inscrits" class="mat-elevation-z8">
-                    <!-- Colonne Nom -->
-                    <ng-container matColumnDef="nom">
-                        <mat-header-cell *matHeaderCellDef> Nom </mat-header-cell>
-                        <mat-cell *matCellDef="let etudiant"> {{etudiant.nom}} </mat-cell>
-                    </ng-container>
-
-                    <!-- Colonne Email -->
-                    <ng-container matColumnDef="mail">
-                        <mat-header-cell *matHeaderCellDef> Email </mat-header-cell>
-                        <mat-cell *matCellDef="let etudiant"> {{etudiant.mail}} </mat-cell>
-                    </ng-container>
-
-                    <!-- Colonne Téléphone -->
-                    <ng-container matColumnDef="telephone">
-                        <mat-header-cell *matHeaderCellDef> Téléphone </mat-header-cell>
-                        <mat-cell *matCellDef="let etudiant"> {{etudiant.telephone}} </mat-cell>
-                    </ng-container>
-
-                    <!-- Colonne Statut -->
-                    <ng-container matColumnDef="statut">
-                        <mat-header-cell *matHeaderCellDef> Statut </mat-header-cell>
-                        <mat-cell *matCellDef="let etudiant">
-                            <mat-chip-listbox>
-                                <mat-chip [color]="getStatutColor(etudiant.idEtudiant)" selected>
-                                    {{etudiant.statut}}
-                                </mat-chip>
-                            </mat-chip-listbox>
-                        </mat-cell>
-                    </ng-container>
-
-                    <!-- Colonne Actions -->
-                    <ng-container matColumnDef="actions">
-                        <mat-header-cell *matHeaderCellDef> Actions </mat-header-cell>
-                        <mat-cell *matCellDef="let etudiant">
-                            <button mat-icon-button color="warn" (click)="deleteInscription(etudiant.idEtudiant)">
-                                <mat-icon>delete</mat-icon>
-                            </button>
-                        </mat-cell>
-                    </ng-container>
-
-                    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-                    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-                </mat-table>
+          <div class="inscrits-section">
+            <div class="table-header">
+              <div class="header-left">
+                <h2 class="title">Liste des participants</h2>
+                <!-- Barre de recherche (seulement visible s'il y a des inscrits) -->
+                <mat-form-field appearance="outline" class="search-bar" *ngIf="event.inscrits && event.inscrits.length > 0">
+                  <mat-label>Rechercher un participant</mat-label>
+                  <input matInput [(ngModel)]="searchText" (input)="applyFilter()" placeholder="Nom, email...">
+                  <mat-icon matSuffix>search</mat-icon>
+                </mat-form-field>
+              </div>
+              <button mat-icon-button class="round-button"
+                      [routerLink]="'/event/' + event.idEvenement + '/addetudiant'" aria-label="Ajouter étudiant">
+                <mat-icon>person_add</mat-icon>
+              </button>
             </div>
+
+            <!-- Message quand il n'y a pas d'inscrits -->
+            <div class="no-participants" *ngIf="!event.inscrits || event.inscrits.length === 0">
+              <mat-icon class="empty-icon">people_outline</mat-icon>
+              <p>Aucun participant pour le moment</p>
+              <button mat-raised-button color="primary"
+                      [routerLink]="'/event/' + event.idEvenement + '/addetudiant'">
+                <mat-icon>person_add</mat-icon>
+                Ajouter un participant
+              </button>
+            </div>
+
+            <!-- Tableau (seulement visible s'il y a des inscrits) -->
+            <mat-table [dataSource]="event.inscrits" class="mat-elevation-z8"
+                       *ngIf="event.inscrits && event.inscrits.length > 0">
+              <!-- Colonne Nom -->
+              <ng-container matColumnDef="nom">
+                <mat-header-cell *matHeaderCellDef> Nom </mat-header-cell>
+                <mat-cell *matCellDef="let etudiant"> {{etudiant.nom}} </mat-cell>
+              </ng-container>
+
+              <!-- Colonne Email -->
+              <ng-container matColumnDef="mail">
+                <mat-header-cell *matHeaderCellDef> Email </mat-header-cell>
+                <mat-cell *matCellDef="let etudiant"> {{etudiant.mail}} </mat-cell>
+              </ng-container>
+
+              <!-- Colonne Téléphone -->
+              <ng-container matColumnDef="telephone">
+                <mat-header-cell *matHeaderCellDef> Téléphone </mat-header-cell>
+                <mat-cell *matCellDef="let etudiant"> {{etudiant.telephone}} </mat-cell>
+              </ng-container>
+
+              <!-- Colonne Statut -->
+              <ng-container matColumnDef="statut">
+                <mat-header-cell *matHeaderCellDef> Statut </mat-header-cell>
+                <mat-cell *matCellDef="let etudiant">
+                  <mat-chip-listbox>
+                    <mat-chip [color]="getStatutColor(etudiant.idEtudiant)" selected>
+                      {{etudiant.statut}}
+                    </mat-chip>
+                  </mat-chip-listbox>
+                </mat-cell>
+              </ng-container>
+
+              <!-- Colonne Actions -->
+              <ng-container matColumnDef="actions">
+                <mat-header-cell *matHeaderCellDef> Actions </mat-header-cell>
+                <mat-cell *matCellDef="let etudiant">
+                  <button mat-icon-button color="warn" (click)="deleteInscription(etudiant.idEtudiant)">
+                    <mat-icon>delete</mat-icon>
+                  </button>
+                  <button mat-icon-button color="warn" routerLink="reservation/">
+                    <mat-icon>edit</mat-icon>
+                  </button>
+                </mat-cell>
+              </ng-container>
+
+              <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+              <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+            </mat-table>
+          </div>
         </div>
     </mat-card>
 </div>

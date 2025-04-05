@@ -13,12 +13,11 @@ import { MatTableDataSource } from '@angular/material/table';
 })
 export class EvenementComponent {
   @Input() event!: Evenement;
-  @Input() isListView: boolean = true;
+  isListView: boolean = true;
   private readonly eventService: EvenementsService = inject(EvenementsService);
   private readonly router: ActivatedRoute = inject(ActivatedRoute);
 
   displayedColumns: string[] = ['nom', 'mail', 'telephone', 'statut', 'actions'];
-  dialog: any;
   snackBar: any;
 
   searchText: string = '';
@@ -33,11 +32,12 @@ export class EvenementComponent {
     // Récupération de l'article via son id
     const idParam = this.router.snapshot.paramMap.get('id');
 
-    
+    // Si on est sur les détails d'un evt
     if (idParam !== null) {
+      console.log(idParam);
       const id = parseInt(idParam, 10);
-      this.eventService.getEvenementById(id).subscribe(produit => {
-        this.event = produit;
+      this.eventService.getEvenementById(id).subscribe(donnees => {
+        this.event = donnees;
 
         // Changer l'état de liste
         this.isListView = false;
@@ -50,7 +50,7 @@ export class EvenementComponent {
       });
     }
 
-    
+
   }
 
   // Chargement des inscrits

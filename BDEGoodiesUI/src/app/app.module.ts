@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
-// Composants 
+// Composants
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
@@ -13,7 +13,7 @@ import { HomeComponent } from './home/home.component';
 import { AddReservationComponent } from './pages/add-reservation/add-reservation.component';
 
 
-// ANgular Material
+// Angular Material
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -51,7 +51,7 @@ import { AddEvenementComponent } from './pages/add-evenement/add-evenement.compo
     AddEvenementComponent
   ],
   imports: [
-    
+
     BrowserModule,
     AppRoutingModule,
     BrowserModule,
@@ -77,7 +77,7 @@ import { AddEvenementComponent } from './pages/add-evenement/add-evenement.compo
     MatInputModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    
+
   ],
   providers: [],
   bootstrap: [AppComponent]

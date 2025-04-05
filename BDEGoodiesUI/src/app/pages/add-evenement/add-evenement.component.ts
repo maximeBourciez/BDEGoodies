@@ -65,12 +65,11 @@ export class AddEvenementComponent {
         formValue.theme
       );
 
-      console.log(newEvent);
 
       // Envoie à l'api
       this.eventService.createEvent(newEvent).subscribe({
         next: (response) => {
-          console.log('Événement créé', response);
+
           this.router.navigate(['/events']);
         },
         error: (err) => {
