@@ -29,11 +29,6 @@ export class EvenementsService {
     return this.http.get<Reservation[]>(`${this.apiUrl}/${id}/reservations`);
   }
 
-  // Désinscrire un étudiant
-  delete(idEvenement: number, idEtudiant: number):Observable<void>{
-    return this.http.delete<void>(`${this.apiUrl}/${idEvenement}/etudiants/${idEtudiant}`);
-  }
-
   // Créer un évènement
   createEvent(event: Evenement): Observable<Evenement> {
     return this.http.post<Evenement>(this.apiUrl, event);

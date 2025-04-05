@@ -48,7 +48,7 @@ import { AddEvenementComponent } from './pages/add-evenement/add-evenement.compo
     GoodieComponent,
     ListGoodiesComponent,
     AddReservationComponent,
-    AddEvenementComponent
+    AddEvenementComponent,
   ],
   imports: [
 

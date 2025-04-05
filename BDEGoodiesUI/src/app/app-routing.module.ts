@@ -23,6 +23,7 @@ const routes: Routes = [
   { path: 'add-event', component: AddEvenementComponent },
   { path: 'events', component: ListEvenementsComponent },
   { path: 'event/:id', component: EvenementComponent },
+
 ];
 
 @NgModule({
