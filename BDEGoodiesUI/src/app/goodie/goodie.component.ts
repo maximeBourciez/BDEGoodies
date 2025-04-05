@@ -1,7 +1,7 @@
 import { Component, inject, Input } from '@angular/core';
-import { Goodie } from '../models/goodie.model';
-import {GoodiesService} from '../services/goodies.service';
-import {MatSnackBar} from '@angular/material/snack-bar';
+import { Goodie, GoodieStock } from '../models/goodie.model'; // Assurez-vous que GoodieStock est importé
+import { GoodiesService } from '../services/goodies.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-goodie',
@@ -10,35 +10,34 @@ import {MatSnackBar} from '@angular/material/snack-bar';
   styleUrl: './goodie.component.scss'
 })
 export class GoodieComponent {
-  @Input() goodie!: Goodie;
+  @Input() goodie!: Goodie | GoodieStock; // Accepte les deux types
   isLoading!: boolean;
   private readonly goodieService: GoodiesService = inject(GoodiesService);
   private readonly snackBar: MatSnackBar = inject(MatSnackBar);
 
-
-  // constructeur
-  constructor() {
+  // Vérifie si c'est un Goodie avec stock
+  get isStockGoodie(): boolean {
+    return 'stock_restant' in this.goodie ;
   }
 
-  // Initialisation
   incrementStock(): void {
-    if (this.goodie) {
-      this.goodie.quantite++;
+    if (this.isStockGoodie && this.goodie) {
+      (this.goodie as GoodieStock).quantite++;
     }
   }
 
   decrementStock(): void {
-    if (this.goodie && this.goodie.quantite > 0) {
-      this.goodie.quantite--;
+    if (this.isStockGoodie && this.goodie && (this.goodie as GoodieStock).quantite > 0) {
+      (this.goodie as GoodieStock).quantite--;
     }
   }
 
   saveStock(): void {
-    if (!this.goodie) return;
+    if (!this.isStockGoodie || !this.goodie) return;
 
     this.isLoading = true;
 
-    this.goodieService.updateGoodie(this.goodie)
+    this.goodieService.updateGoodie(this.goodie as GoodieStock)
       .subscribe({
         next: () => {
           this.snackBar.open('Stock mis à jour avec succès', 'Fermer', { duration: 3000 });

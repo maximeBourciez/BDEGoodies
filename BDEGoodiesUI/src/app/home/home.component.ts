@@ -4,7 +4,7 @@ import { EvenementsService } from '../services/evenements.service';
 import {GoodiesService} from '../services/goodies.service';
 import {ReservationsService} from '../services/reservations.service';
 import {Reservation} from '../models/reservation.model';
-import {Goodie} from '../models/goodie.model';
+import {Goodie, GoodieStock} from '../models/goodie.model';
 import {forkJoin} from 'rxjs';
 import { ListEvenementsComponent} from '../pages/list-evenements/list-evenements.component';
 
@@ -25,7 +25,7 @@ export class HomeComponent {
 
   prochainsEvents : Evenement[] = [];
   dernieresReservations : Reservation[] = [];
-  stocksGoodies : Goodie[] = [];
+  stocksGoodies : GoodieStock[] = [];
 
   // Constructeur
   constructor() { }

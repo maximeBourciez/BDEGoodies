@@ -14,13 +14,37 @@
   .section {
     margin-bottom: 40px;
 
-    h2 {
-      color: #3f51b5;
-      font-size: 1.5rem;
-      font-weight: 500;
+    &-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
       margin-bottom: 24px;
       padding-bottom: 8px;
       border-bottom: 2px solid #3f51b5;
+
+      h2 {
+        color: #3f51b5;
+        font-size: 1.5rem;
+        font-weight: 500;
+        margin: 0;
+      }
+
+      button {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        background-color: #3f51b5;
+        color: white;
+        border-radius: 15px;
+        font-weight: 500;
+        letter-spacing: 0.5px;
+
+        mat-icon {
+          font-size: 20px;
+          height: 20px;
+          width: 20px;
+        }
+      }
     }
 
     .events-list,
@@ -44,13 +68,14 @@
       }
     }
 
-    .reservation-card {
+    .reservation-card,
+    .goodie-card {
       background-color: white;
       border-radius: 8px;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      padding: 20px;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
       border: 1px solid #ddd;
+      max-width: 400px;
 
       &:hover {
         transform: translateY(-5px);
@@ -58,77 +83,97 @@
         border: none;
       }
 
-      p {
-        margin: 10px 0;
-        font-size: 0.95rem;
-        color: #333;
+      .card-header {
+        background-color: #3f51b5;
+        color: white;
+        padding: 16px;
+        border-radius: 8px 8px 0 0;
 
-        &:first-child {
+        h3, mat-card-title {
+          font-size: 1.2rem;
           font-weight: 500;
-          color: #3f51b5;
+          margin: 0;
         }
 
-        &:nth-child(2) {
-          font-weight: 500;
+        p, mat-card-subtitle {
+          color: rgba(255, 255, 255, 0.7);
+          margin: 4px 0 0;
+          font-size: 0.9rem;
+        }
+      }
+
+      .card-content,
+      mat-card-content {
+        padding: 16px;
+
+        p {
+          display: flex;
+          align-items: center;
+          margin: 12px 0;
+          font-size: 0.95rem;
+
+          mat-icon {
+            margin-right: 8px;
+            font-size: 1.2rem;
+            width: auto;
+            height: auto;
+            color: #3f51b5;
+          }
+
+          &:first-child {
+            font-weight: 500;
+            color: #3f51b5;
+          }
+
+          &:nth-child(2) {
+            font-weight: 500;
+          }
+
+          &:last-child {
+            font-weight: 500;
+          }
         }
 
-        &:last-child {
-          color: #2e7d32;
+        .stock-controls {
+          display: flex;
+          gap: 8px;
+          margin: 12px 0;
+          align-items: center;
+        }
+      }
+
+      mat-card-actions {
+        display: flex;
+        justify-content: flex-end;
+        padding: 8px 16px 16px;
+
+        button {
+          background-color: #3f51b5;
+          color: white;
+          border-radius: 15px;
           font-weight: 500;
+          letter-spacing: 0.5px;
         }
       }
     }
   }
 }
 
-.card-header {
-  background-color: #3f51b5;
-  color: white;
-  padding: 16px;
-  border-radius: 8px 8px 0 0;
-
-  h3 {
-    font-size: 1.2rem;
-    font-weight: 500;
-    margin: 0;
-  }
-
-  p {
-    color: rgba(255, 255, 255, 0.7);
-    margin: 4px 0 0;
-    font-size: 0.9rem;
-  }
-}
-
-.card-content {
-  padding: 16px;
-
-  p {
-    display: flex;
-    align-items: center;
-    margin: 12px 0;
-    font-size: 0.95rem;
-
-    mat-icon {
-      margin-right: 8px;
-      font-size: 1.2rem;
-      width: auto;
-      height: auto;
-    }
-  }
-}
-
-.status-confirmée {
+// Classes de statut
+.status-confirmée,
+.status-confirmee {
   color: #2e7d32;
   font-weight: 500;
 }
 
-.status-en attente {
+.status-en attente,
+.status-en_attente {
   color: #ff9800;
   font-weight: 500;
 }
 
-.status-annulée {
+.status-annulée,
+.status-annulee {
   color: #f44336;
   font-weight: 500;
 }

@@ -4,21 +4,37 @@
   </mat-card-header>
   <mat-card-content>
     <p><strong>Description :</strong> {{ goodie.description }}</p>
-    <p><strong>Quantité :</strong>
-      <span>{{ goodie.quantite }}</span>
-      <button mat-icon-button color="primary" (click)="incrementStock()" matTooltip="Ajouter une unité">
-        <mat-icon>add</mat-icon>
-      </button>
-      <button mat-icon-button color="warn" (click)="decrementStock()" [disabled]="goodie.quantite <= 0" matTooltip="Retirer une unité">
-        <mat-icon>remove</mat-icon>
-      </button>
-    </p>
-    <p><strong>Coût unitaire :</strong> {{ goodie.coutUnitaire }} €</p>
+    <p><strong>Quantité Disponible :</strong> {{ goodie.quantite }}</p>
+
+    <!-- Afficher les contrôles de stock seulement si ce n'est PAS un GoodieStock -->
+    @if (!isStockGoodie) {
+      <div class="stock-controls">
+        <button mat-icon-button color="primary" (click)="incrementStock()" matTooltip="Ajouter une unité">
+          <mat-icon>add</mat-icon>
+        </button>
+        <button mat-icon-button color="warn" (click)="decrementStock()"
+                [disabled]="goodie.quantite <= 0" matTooltip="Retirer une unité">
+          <mat-icon>remove</mat-icon>
+        </button>
+      </div>
+
+      <p><strong>Coût unitaire :</strong> {{ goodie.coutUnitaire }} €</p>
+    }@else{
+      <div class="stock-controls">
+
+      </div>
+
+      <p><strong>Coût unitaire :</strong> {{ goodie.coutUnitaire }} €</p>
+    }
   </mat-card-content>
-  <mat-card-actions>
-    <button mat-raised-button color="primary" (click)="saveStock()">
-      <mat-icon>save</mat-icon>
-      Enregistrer les modifications
-    </button>
-  </mat-card-actions>
+
+  <!-- Afficher le bouton d'enregistrement seulement si ce n'est PAS un GoodieStock -->
+  @if (!isStockGoodie) {
+    <mat-card-actions>
+      <button mat-raised-button color="primary" (click)="saveStock()">
+        <mat-icon>save</mat-icon>
+        Enregistrer les modifications
+      </button>
+    </mat-card-actions>
+  }
 </mat-card>
