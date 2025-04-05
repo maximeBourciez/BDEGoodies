@@ -36,6 +36,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { AddEvenementComponent } from './pages/add-evenement/add-evenement.component';
 import { AddGoodieComponent } from './pages/add-goodie/add-goodie.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -79,7 +80,7 @@ import { AddGoodieComponent } from './pages/add-goodie/add-goodie.component';
     MatInputModule,
     MatDatepickerModule,
     MatNativeDateModule,
-
+    MatProgressSpinnerModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

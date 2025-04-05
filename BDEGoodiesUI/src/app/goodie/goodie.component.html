@@ -1,4 +1,9 @@
 <mat-card class="goodie-card" *ngIf="goodie">
+  <div class="loader-overlay" *ngIf="isLoading">
+    <mat-spinner diameter="50" color="accent"></mat-spinner>
+    <p class="loader-text">Chargement en cours...</p>
+  </div>
+
   <mat-card-header>
     <mat-card-title>{{ goodie.nom }}</mat-card-title>
   </mat-card-header>

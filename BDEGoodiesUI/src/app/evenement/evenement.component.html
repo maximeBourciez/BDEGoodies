@@ -27,55 +27,62 @@
         </mat-card>
     </a>
 } @else {
-<div class="event-detail-container">
-    <mat-card class="event-detail-card">
+  @if(isLoading){
+    <div class="loader-overlay" *ngIf="isLoading">
+      <mat-spinner diameter="50" color="accent"></mat-spinner>
+      <p class="loader-text">Chargement en cours...</p>
+    </div>
+  }@else{
+    <div class="event-detail-container">
+
+      <mat-card class="event-detail-card">
         <div class="event-header">
-            <h1 class="title">{{ event.nom }}</h1>
-            <div class="event-meta">
+          <h1 class="title">{{ event.nom }}</h1>
+          <div class="event-meta">
                 <span class="event-date">
                     <mat-icon>event</mat-icon>
-                    {{ event.dateHeure ? (event.dateHeure | date:'fullDate') : 'Date non disponible' }}
+                  {{ event.dateHeure ? (event.dateHeure | date:'fullDate') : 'Date non disponible' }}
                 </span>
-                <span class="event-location">
+            <span class="event-location">
                     <mat-icon>location_on</mat-icon>
-                    {{ event.lieu }}
+              {{ event.lieu }}
                 </span>
-            </div>
+          </div>
         </div>
 
         <div class="event-content">
-            <div class="event-info-section">
-                <h2>Détails de l'événement</h2>
-                <div class="info-grid">
-                    <div class="info-item">
-                        <mat-icon>category</mat-icon>
-                        <span><strong>Thème :</strong> {{ event.theme }}</span>
-                    </div>
-                    <div class="info-item">
-                        <mat-icon>euro_symbol</mat-icon>
-                        <span><strong>Prix :</strong> {{ event.prix | currency:'EUR':'symbol':'1.2-2' }}</span>
-                    </div>
-                    <div class="info-item">
-                        <mat-icon>people</mat-icon>
-                        <span><strong>Capacité :</strong> {{ event.capacite }} places</span>
-                    </div>
-                    <div class="info-item">
-                        <mat-icon>confirmation_number</mat-icon>
-                        <span><strong>Places restantes :</strong> {{ event.capacite - event.inscrits.length }}</span>
-                    </div>
-                    <div class="info-item">
-                        <mat-icon>confirmation_number</mat-icon>
-                        <span><strong>Nombre d'inscrits :</strong> {{ event.inscrits.length }}</span>
-                    </div>
-                </div>
+          <div class="event-info-section">
+            <h2>Détails de l'événement</h2>
+            <div class="info-grid">
+              <div class="info-item">
+                <mat-icon>category</mat-icon>
+                <span><strong>Thème :</strong> {{ event.theme }}</span>
+              </div>
+              <div class="info-item">
+                <mat-icon>euro_symbol</mat-icon>
+                <span><strong>Prix :</strong> {{ event.prix | currency:'EUR':'symbol':'1.2-2' }}</span>
+              </div>
+              <div class="info-item">
+                <mat-icon>people</mat-icon>
+                <span><strong>Capacité :</strong> {{ event.capacite }} places</span>
+              </div>
+              <div class="info-item">
+                <mat-icon>confirmation_number</mat-icon>
+                <span><strong>Places restantes :</strong> {{ event.capacite - event.inscrits.length }}</span>
+              </div>
+              <div class="info-item">
+                <mat-icon>confirmation_number</mat-icon>
+                <span><strong>Nombre d'inscrits :</strong> {{ event.inscrits.length }}</span>
+              </div>
             </div>
+          </div>
 
-            <div class="event-description">
-                <h2>Description</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore
-                    et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                    aliquip ex ea commodo consequat.</p>
-            </div>
+          <div class="event-description">
+            <h2>Description</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore
+              et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+              aliquip ex ea commodo consequat.</p>
+          </div>
 
           <div class="inscrits-section">
             <div class="table-header">
@@ -157,6 +164,8 @@
             </mat-table>
           </div>
         </div>
-    </mat-card>
-</div>
+      </mat-card>
+    </div>
+  }
+
 }

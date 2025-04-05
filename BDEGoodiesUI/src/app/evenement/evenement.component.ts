@@ -25,6 +25,7 @@ export class EvenementComponent {
     inscrits: [],
   };
   isListView: boolean = true;
+  isLoading: boolean = true;
   private readonly eventService: EvenementsService = inject(EvenementsService);
   private readonly reservationService: ReservationsService = inject(ReservationsService);
   private readonly router: ActivatedRoute = inject(ActivatedRoute);
@@ -52,7 +53,7 @@ export class EvenementComponent {
       const id = parseInt(idParam, 10);
       this.eventService.getEvenementById(id).subscribe(donnees => {
         this.event = donnees;
-        // S'assurer que event.inscrits existe (initialiser si nécessaire)
+
         if (!this.event.inscrits) {
           this.event.inscrits = [];
         }
@@ -62,8 +63,11 @@ export class EvenementComponent {
 
         // Charger les personnes inscrites
         this.loadReservations();
+
       });
     }
+
+    this.isLoading = false;
   }
 
   // Chargement des inscrits
@@ -82,8 +86,6 @@ export class EvenementComponent {
     });
   }
 
-
-
   // Méthode pour la couleur du statut
   getStatutColor(statut: string): string {
     switch (statut) {
@@ -94,6 +96,7 @@ export class EvenementComponent {
     }
   }
 
+  // méthode de suppression d'une reservation
   deleteInscription(idReservation: number): void {
     if (confirm('Êtes-vous sûr de vouloir supprimer cette inscription ?')) {
       this.reservationService.deleteReservation(idReservation).subscribe({
@@ -108,7 +111,7 @@ export class EvenementComponent {
     }
   }
 
-
+  // Application du filtre dans la table
   applyFilter() {
     this.dataSource.filter = this.searchText.trim().toLowerCase();
   }
