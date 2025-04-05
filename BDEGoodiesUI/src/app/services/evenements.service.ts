@@ -22,7 +22,7 @@ export class EvenementsService {
   getEvenementById(id: number):Observable<Evenement>{
     return this.http.get<Evenement>(`${this.apiUrl}/${id}`);
   }
-  
+
   // R&cupérer les inscrits
   getInscriptions(id: number):Observable<Etudiant[]>{
     return this.http.get<Etudiant[]>(`${this.apiUrl}/${id}/etudiants`);
@@ -35,9 +35,6 @@ export class EvenementsService {
 
   // Créer un évènement
   createEvent(event: Evenement): Observable<Evenement> {
-    return this.http.post<Evenement>(this.apiUrl, {
-      ...event,
-      dateHeure: event.dateHeure 
-    });
+    return this.http.post<Evenement>(this.apiUrl, event);
   }
 }

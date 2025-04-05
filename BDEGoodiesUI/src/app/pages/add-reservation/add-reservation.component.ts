@@ -10,6 +10,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Reservation, StatutReservation } from '../../models/reservation.model';
 import { ReservationsService } from '../../services/reservations.service';
 import { Router } from '@angular/router';
+import { GoodieReservation } from '../../models/goodieReservation.model';
 
 @Component({
   selector: 'app-add-reservation',
@@ -111,13 +112,15 @@ export class AddReservationComponent {
     return;
   }
 
+  // Récupération du statut sélectionné et conversion en StatutReservation
+  const selectedStatut: StatutReservation = this.form.value.statut as StatutReservation;
 
     const reservationData: Reservation = {
       idReservation: 0,
       idEtudiant: this.form.value.studentId,
       idEvenement: this.form.value.eventId,
       dateReservation: new Date(),
-      statut: StatutReservation.EnAttente,
+      statut: selectedStatut,
       
     };
 
@@ -133,6 +136,9 @@ export class AddReservationComponent {
         this.isLoading = false;
       }
     });
+
+    // Créer les réservations de goodies
+    this.createReservationGoodies(this.selectedGoodies, reservationData.idReservation);
   }
 
   private showError(message: string): void {
@@ -142,6 +148,21 @@ export class AddReservationComponent {
   private markAllAsTouched(): void {
     Object.keys(this.form.controls).forEach(key => {
       this.form.get(key)?.markAsTouched();
+    });
+  }
+
+  private createReservationGoodies(selectedGoodies: {goodie: Goodie, quantity: number}[], reservationId: number): void {
+    selectedGoodies.forEach(item => {
+      const goodieReservation = new GoodieReservation(reservationId, item.goodie.idGoodie, item.quantity);
+      this.reservationService.createGoodieReservation(goodieReservation).subscribe({
+        next: () => {
+          this.snackBar.open('Réservation de goodies créée avec succès', 'Fermer', { duration: 3000 });
+        },
+        error: (error : Error) => {
+          console.error('Erreur lors de la création de la réservation de goodies:', error);
+          this.snackBar.open('Erreur lors de la création de la réservation de goodies', 'Fermer', { duration: 3000 });
+        }
+      });
     });
   }
 }

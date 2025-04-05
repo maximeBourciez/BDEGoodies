@@ -33,14 +33,16 @@ class EvenementsController extends Controller
     }
 
     // Méthode pour créer un nouvel événement
-    public function create(Request $request)
+    public function store(Request $request)
     {
         // Valider les données de la requête
         $validatedData = $request->validate([
             'nom' => 'required|string|max:255',
-            'date' => 'required|date',
+            'dateHeure' => 'required|string|date',
             'lieu' => 'required|string|max:255',
-            'description' => 'nullable|string',
+            'prix' => 'required|integer|min:0',
+            'capacite' => 'required|integer|min:1',
+            'theme' => 'nullable|string|max:50',
         ]);
 
         // Créer un nouvel événement

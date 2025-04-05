@@ -12,13 +12,33 @@ export class Evenement{
     inscrits: Etudiant[] = [];
 
     // Constructeur
-    constructor(id: number, nom: string, lieu: string, date: Date, prix: number, capacite: number, theme: string){
-        this.idEvenement = id;
-        this.nom = nom;
-        this.lieu = lieu;
-        this.dateHeure = new Date(date);
-        this.prix = prix;
-        this.capacite = capacite;
-        this.theme = theme;
-    }
+  constructor(
+    idEvenement: number,
+    nom: string,
+    lieu: string,
+    dateHeure: Date,
+    prix: number,
+    capacite: number,
+    theme: string
+  ) {
+    this.idEvenement = idEvenement;
+    this.nom = nom;
+    this.lieu = lieu;
+    this.dateHeure = new Date(dateHeure);
+    this.prix = prix;
+    this.capacite = capacite;
+    this.theme = theme;
+  }
+
+  // Optional: Add a method to convert to API-ready JSON
+  toApiJson(): any {
+    return {
+      nom: this.nom,
+      lieu: this.lieu,
+      dateHeure: this.dateHeure.toISOString(),
+      prix: this.prix,
+      capacite: this.capacite,
+      theme: this.theme
+    };
+  }
 }

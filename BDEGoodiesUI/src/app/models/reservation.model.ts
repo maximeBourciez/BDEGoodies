@@ -1,8 +1,8 @@
 
 export enum StatutReservation{
     EnAttente = "En attente",
-    Acceptee = "Acceptée",
-    Refusee = "Refusée"
+    Confirmée = "Confirmée",
+    Annulée = "Annulée"
 }
 
 export class Reservation{

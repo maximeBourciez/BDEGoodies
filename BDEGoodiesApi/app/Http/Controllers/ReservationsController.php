@@ -40,7 +40,7 @@ class ReservationsController extends Controller
             'idEtudiant' => 'required|integer|exists:etudiants,idEtudiant',
             'idEvenement' => 'required|integer|exists:evenements,idEvenement',
             'dateReservation' => 'required|date',
-            'statut' => 'required|string',
+            'statut' => 'required|in:Confirmée,En attente,Annulée',
         ]);
 
         // Créer une nouvelle réservation
