@@ -40,12 +40,8 @@ export class ReservationsService {
     return this.http.delete<Reservation>(this.API_URL + '/' + idReservation );
   }
 
-  checkExistingReservation(studentId: number, eventId: number): Observable<boolean> {
-    return this.http.get<boolean>(`${this.API_URL}/exists`, {
-      params: {
-        studentId: studentId.toString(),
-        eventId: eventId.toString()
-      }
-    });
+  // récupérer les dernières réservations
+  getDernieresReservations(){
+    return this.http.get<any[]>(`http://localhost:8000/api/dernieres-reservations`);
   }
 }

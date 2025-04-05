@@ -82,4 +82,20 @@ class GoodiesController extends Controller
         
         return response()->json(['message' => 'Goodie supprimé']);
     }
+
+    /**
+     * Affiche les goodies avec un petit stock.
+     */
+    public function getPetitsStocks()
+    {
+        $petitsStocks = Goodie::select('goodies.idGoodie', 'goodies.nom', 'goodies.quantite as quantite_goodie')
+            ->leftJoin('reservation_goodies', 'goodies.idGoodie', '=', 'reservation_goodies.idGoodie')
+            ->selectRaw('goodies.quantite - COALESCE(SUM(reservation_goodies.quantite), 0) AS stock_restant')
+            ->groupBy('goodies.idGoodie', 'goodies.nom', 'goodies.quantite')
+            ->orderBy('stock_restant', 'asc')
+            ->limit(6)
+            ->get();
+
+        return response()->json($petitsStocks);
+    }
 }

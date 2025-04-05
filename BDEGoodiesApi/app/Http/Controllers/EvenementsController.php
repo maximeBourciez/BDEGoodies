@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Evenement;
 use App\Models\Reservation;
+use Carbon\Carbon;
+
 
 class EvenementsController extends Controller
 {
@@ -120,5 +122,21 @@ class EvenementsController extends Controller
 
         return response()->json($reservations);
     }
-    
+
+
+    // Fonction pour récupérer les 3 prochians événements
+    public function getProchainsEvenements()
+    {
+        // Récupérer la date actuelle
+        $now = Carbon::now();
+
+        // Récupérer les trois prochains événements
+        $prochainsEvenements = Evenement::where('dateHeure', '>=', $now)
+                                        ->orderBy('dateHeure', 'asc')
+                                        ->limit(3)
+                                        ->get();
+
+        return response()->json($prochainsEvenements);
+    }
+   
 }

@@ -135,18 +135,15 @@ class ReservationsController extends Controller
         return response()->json($reservations);
     }
 
-    // In your ReservationsController
-    public function checkExisting(Request $request)
+    public function getDernieresReservations()
     {
-        $request->validate([
-            'idEtudiant' => 'required|integer',
-            'idEvenement' => 'required|integer'
-        ]);
+        // Charger les réservations avec les relations 'etudiant' et 'evenement'
+        $reservations = Reservation::with('etudiant', 'evenement')
+                                   ->latest()
+                                   ->take(6)
+                                   ->get();
 
-        $exists = Reservation::where('idEtudiant', $request->idEtudiant)
-            ->where('idEvenement', $request->idEvenement)
-            ->exists();
-
-        return response()->json($exists);
+        return response()->json($reservations);
     }
+
 }

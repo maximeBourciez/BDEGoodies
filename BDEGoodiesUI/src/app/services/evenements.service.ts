@@ -33,4 +33,9 @@ export class EvenementsService {
   createEvent(event: Evenement): Observable<Evenement> {
     return this.http.post<Evenement>(this.apiUrl, event);
   }
+
+  // Récupérer les derniers évènements
+  getProchainsEvenements(){
+    return this.http.get<Evenement[]>('http://localhost:8000/api/prochains-evenements');
+  }
 }

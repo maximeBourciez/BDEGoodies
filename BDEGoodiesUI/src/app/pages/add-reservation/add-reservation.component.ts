@@ -47,7 +47,7 @@ export class AddReservationComponent {
   private loadData(): void {
     this.isLoading = true;
 
-    // Load goodies and students in parallel
+    // Charger les goodies et étudaints
     forkJoin([
       this.goodieService.getGoodies(),
       this.studentService.getEtudiants()
@@ -131,8 +131,6 @@ export class AddReservationComponent {
     this.isLoading = true;
 
     const reservationData= new Reservation(0, this.form.value.studentId, eventId, new Date(), this.form.value.statut as StatutReservation);
-
-
 
     this.reservationService.create(reservationData).subscribe({
       next: (reservation: Reservation) => {

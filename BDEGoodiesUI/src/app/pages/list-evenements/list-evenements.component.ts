@@ -1,4 +1,4 @@
-import { Component, HostListener, inject, OnInit } from '@angular/core';
+import {Component, HostListener, inject, Input, OnInit} from '@angular/core';
 import { Evenement } from '../../models/evenement.model';
 import { EvenementsService } from '../../services/evenements.service';
 import { Subject, debounceTime, distinctUntilChanged, takeUntil } from 'rxjs';
@@ -11,7 +11,7 @@ import { Subject, debounceTime, distinctUntilChanged, takeUntil } from 'rxjs';
 })
 export class ListEvenementsComponent implements OnInit {
   // Attributs
-  events: Evenement[] = [];
+  @Input() events: Evenement[] = [];
   private readonly eventService: EvenementsService = inject(EvenementsService);
   gridCols = 3;
   searchText: string = '';

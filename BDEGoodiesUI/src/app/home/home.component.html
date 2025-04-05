@@ -1,55 +1,41 @@
-<div class="container mt-4">
-    <h2 class="mb-4">📊 Tableau de bord</h2>
+<div class="container">
+  <h1 class="title">{{ title }}</h1>
 
-    <div class="row">
-        <!-- Prochain événement -->
-        <div class="col-md-4">
-            <mat-card class="dashboard-card">
-                <mat-card-title>🎉 Prochain événement</mat-card-title>
-                <mat-card-content>
-                    <p><strong>{{ prochainEvenement.nom }}</strong></p>
-                    <p>Date : {{ prochainEvenement.date }}</p>
-                    <p>Lieu : {{ prochainEvenement.lieu }}</p>
-                    <p>Prix : {{ prochainEvenement.prix }} €</p>
-                </mat-card-content>
-                <mat-card-actions>
-                    <button mat-button color="primary">Voir détails</button>
-                </mat-card-actions>
-            </mat-card>
-        </div>
-
-        <!-- Dernières réservations -->
-        <div class="col-md-4">
-            <mat-card class="dashboard-card">
-                <mat-card-title>🎟 Dernières réservations</mat-card-title>
-                <mat-card-content>
-                    <ul>
-                        <li *ngFor="let res of dernieresReservations">
-                            {{ res.etudiant }} - <strong>{{ res.statut }}</strong> ({{ res.soiree }})
-                        </li>
-                    </ul>
-                </mat-card-content>
-                <mat-card-actions>
-                    <button mat-button color="primary">Gérer</button>
-                </mat-card-actions>
-            </mat-card>
-        </div>
-
-        <!-- Stock Goodies -->
-        <div class="col-md-4">
-            <mat-card class="dashboard-card">
-                <mat-card-title>🎁 État du stock</mat-card-title>
-                <mat-card-content>
-                    <ul>
-                        <li *ngFor="let goodie of stockGoodies">
-                            {{ goodie.nom }} : {{ goodie.quantite }} restants
-                        </li>
-                    </ul>
-                </mat-card-content>
-                <mat-card-actions>
-                    <button mat-button color="primary">Voir stock</button>
-                </mat-card-actions>
-            </mat-card>
-        </div>
+  <div class="section">
+    <h2>Prochains Événements</h2>
+    <div class="events-list">
+      @for (event of prochainsEvents; track event.idEvenement){
+        <app-evenement [event]="event"></app-evenement>
+      }
     </div>
+  </div>
+
+  <div class="section">
+    <h2>Dernières Réservations</h2>
+    <div class="reservations-list">
+      <div class="reservation-card" *ngFor="let reservation of dernieresReservations">
+        <div class="card-header">
+          <h3>{{ reservation.evenement.nom }}</h3>
+          <p>{{ reservation.dateReservation | date: 'dd/MM/yyyy' }}</p>
+        </div>
+        <div class="card-content">
+          <p><mat-icon>person</mat-icon> {{ reservation.etudiant.nom }}</p>
+          <p><mat-icon>event</mat-icon> {{ reservation.evenement.nom }}</p>
+          <p><mat-icon>calendar_today</mat-icon> {{ reservation.dateReservation | date: 'fullDate' }}</p>
+          <p [ngClass]="'status-' + reservation.statut.toLowerCase()">
+            <mat-icon>circle</mat-icon> {{ reservation.statut }}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Goodies en Stock Limité</h2>
+    <div class="goodies-list">
+      @for (goodie of stocksGoodies; track goodie.idGoodie) {
+        <app-goodie [goodie]="goodie"></app-goodie>
+      }
+    </div>
+  </div>
 </div>
