@@ -14,6 +14,12 @@
 .container .section {
   margin-bottom: 40px;
 }
+.container .section h2 {
+  color: #3f51b5;
+  font-size: 1.5rem;
+  font-weight: 500;
+  margin: 0;
+}
 .container .section-header {
   display: flex;
   justify-content: space-between;
@@ -21,12 +27,6 @@
   margin-bottom: 24px;
   padding-bottom: 8px;
   border-bottom: 2px solid #3f51b5;
-}
-.container .section-header h2 {
-  color: #3f51b5;
-  font-size: 1.5rem;
-  font-weight: 500;
-  margin: 0;
 }
 .container .section-header button {
   display: flex;

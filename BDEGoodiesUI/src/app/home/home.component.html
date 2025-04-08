@@ -2,7 +2,13 @@
   <h1 class="title">{{ title }}</h1>
 
   <div class="section">
-    <h2>Prochains Événements</h2>
+    <div class="section-header">
+      <h2>Prochains évènements</h2>
+      <button mat-raised-button color="primary" routerLink="/events">
+        <mat-icon>list</mat-icon>
+        Voir tous
+      </button>
+    </div>
     <div class="events-list">
       @for (event of prochainsEvents; track event.idEvenement){
         <app-evenement [event]="event"></app-evenement>
@@ -10,8 +16,32 @@
     </div>
   </div>
 
+
+
   <div class="section">
-    <h2>Dernières Réservations</h2>
+    <div class="section-header">
+      <h2>Goodies en Stock Limité</h2>
+      <button mat-raised-button color="primary" routerLink="/goodies">
+        <mat-icon>list</mat-icon>
+        Voir tous
+      </button>
+    </div>
+    <div class="goodies-list">
+      @for (goodie of stocksGoodies; track goodie.idGoodie) {
+        <app-goodie [goodie]="goodie"></app-goodie>
+      }
+    </div>
+  </div>
+
+
+  <div class="section">
+    <div class="section-header">
+      <h2>Dernières réservations</h2>
+      <button mat-raised-button color="primary" routerLink="/">
+        <mat-icon>list</mat-icon>
+        Voir tous
+      </button>
+    </div>
     <div class="reservations-list">
       <div class="reservation-card" *ngFor="let reservation of dernieresReservations">
         <div class="card-header">
@@ -27,21 +57,6 @@
           </p>
         </div>
       </div>
-    </div>
-  </div>
-
-  <div class="section">
-    <div class="section-header">
-      <h2>Goodies en Stock Limité</h2>
-      <button mat-raised-button color="primary" routerLink="/goodies">
-        <mat-icon>list</mat-icon>
-        Voir tous
-      </button>
-    </div>
-    <div class="goodies-list">
-      @for (goodie of stocksGoodies; track goodie.idGoodie) {
-        <app-goodie [goodie]="goodie"></app-goodie>
-      }
     </div>
   </div>
 </div>

@@ -1,0 +1,69 @@
+<div class="container">
+
+@if(form){
+  <h2>Modification de réservation</h2>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="reservation-form">
+    <!-- Champ ID (lecture seule) -->
+    <div class="form-group">
+      <label for="idReservation">ID Réservation</label>
+      <input type="text" id="idReservation" formControlName="idReservation" class="form-control">
+    </div>
+
+    <!-- Champ Étudiant -->
+    <div class="form-group">
+      <label for="idEtudiant">ID Étudiant</label>
+      <input type="number" id="idEtudiant" formControlName="idEtudiant" class="form-control"
+             [class.is-invalid]="form.get('idEtudiant')?.invalid && form.get('idEtudiant')?.touched">
+      <div *ngIf="form.get('idEtudiant')?.invalid && form.get('idEtudiant')?.touched" class="invalid-feedback">
+        L'ID de l'étudiant est requis
+      </div>
+    </div>
+
+    <!-- Champ Événement -->
+    <div class="form-group">
+      <label for="idEvenement">ID Événement</label>
+      <input type="number" id="idEvenement" formControlName="idEvenement" class="form-control"
+             [class.is-invalid]="form.get('idEvenement')?.invalid && form.get('idEvenement')?.touched">
+      <div *ngIf="form.get('idEvenement')?.invalid && form.get('idEvenement')?.touched" class="invalid-feedback">
+        L'ID de l'événement est requis
+      </div>
+    </div>
+
+    <!-- Champ Date de réservation -->
+    <div class="form-group">
+      <label for="dateReservation">Date de réservation</label>
+      <input type="date" id="dateReservation" formControlName="dateReservation" class="form-control"
+             [class.is-invalid]="form.get('dateReservation')?.invalid && form.get('dateReservation')?.touched">
+      <div *ngIf="form.get('dateReservation')?.invalid && form.get('dateReservation')?.touched" class="invalid-feedback">
+        La date de réservation est requise
+      </div>
+    </div>
+
+    <!-- Champ Statut -->
+    <div class="form-group">
+      <label for="statut">Statut</label>
+      <select id="statut" formControlName="statut" class="form-control"
+              [class.is-invalid]="form.get('statut')?.invalid && form.get('statut')?.touched">
+        @for (statut of statuts; track statut) {
+          <option [value]="statut">{{statut}}</option>
+        }
+      </select>
+      <div *ngIf="form.get('statut')?.invalid && form.get('statut')?.touched" class="invalid-feedback">
+        Le statut est requis
+      </div>
+    </div>
+
+    <!-- Boutons -->
+    <div class="form-actions">
+      <button type="submit" class="btn btn-primary" [disabled]="form.invalid">Enregistrer</button>
+      <button type="button" class="btn btn-secondary" (click)="onCancel()">Annuler</button>
+    </div>
+  </form>
+}@else{
+  <div class="loading-spinner">
+    <p>Chargement en cours...</p>
+  </div>
+}
+
+</div>

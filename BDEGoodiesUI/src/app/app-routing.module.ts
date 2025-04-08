@@ -7,6 +7,7 @@ import { EvenementComponent } from './evenement/evenement.component';
 import { AddReservationComponent } from './pages/add-reservation/add-reservation.component';
 import { AddEvenementComponent } from './pages/add-evenement/add-evenement.component';
 import {AddGoodieComponent} from './pages/add-goodie/add-goodie.component';
+import {EditReservationComponent} from './pages/edit-reservation/edit-reservation.component';
 
 const routes: Routes = [
   {path: '', redirectTo: '/home', pathMatch: 'full'},
@@ -18,6 +19,7 @@ const routes: Routes = [
 
   // Réservations
   { path: 'event/:id/addetudiant', component: AddReservationComponent },
+  { path: 'edit-reservation/:id', component: EditReservationComponent },
 
   // Etudiants
 

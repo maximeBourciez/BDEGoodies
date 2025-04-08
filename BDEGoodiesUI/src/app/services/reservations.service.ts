@@ -27,7 +27,7 @@ export class ReservationsService {
 
   // Mettre à jour une réservation
   updateReservation(reservation: Reservation): Observable<Reservation> {
-    return this.http.put<Reservation>(`${this.API_URL}/reservations/${reservation.idReservation}`, reservation);
+    return this.http.put<Reservation>(`${this.API_URL}/${reservation.idReservation}`, reservation);
   }
 
   // Créer la réservation de goodie
