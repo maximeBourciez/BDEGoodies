@@ -3,6 +3,7 @@ import { Reservation, StatutReservation } from '../../models/reservation.model';
 import { ReservationsService } from '../../services/reservations.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-edit-reservation',
@@ -22,6 +23,7 @@ export class EditReservationComponent {
   private readonly fb: FormBuilder = inject(FormBuilder);
   private readonly activatedRoute: ActivatedRoute = inject(ActivatedRoute);
   private readonly router: Router = inject(Router);
+  private readonly snackBar: MatSnackBar = inject(MatSnackBar);
 
   // Constructeur
   constructor() {
@@ -72,27 +74,23 @@ export class EditReservationComponent {
     if (this.form.valid) {
       // Création d'une nouvelle instance de Reservation avec les valeurs du formulaire
       const updatedReservation = new Reservation(
-        parseInt(this.form.get('idReservation')?.value), // ID existant
+        parseInt(this.form.get('idReservation')?.value),
         parseInt(this.form.get('idEtudiant')?.value),
         parseInt(this.form.get('idEvenement')?.value),
-        new Date(this.form.get('dateReservation')?.value), // Conversion en Date
+        new Date(this.form.get('dateReservation')?.value),
         this.form.get('statut')?.value
       );
+
 
       // Appel du service pour mettre à jour
       this.reservationService.updateReservation(updatedReservation).subscribe({
         next: () => {
           // Redirection avec message de succès
-          this.router.navigate(['/event/ + updatedReservation.idReservation'], {
-            state: {
-              successMessage: 'Réservation modifiée avec succès',
-              updatedReservation: updatedReservation
-            }
-          });
+          console.log('Reservation updated successfully.');
+          this.router.navigate(['/event/' + this.reservation.idEvenement]);
         },
         error: (err) => {
-          console.error('Erreur lors de la mise à jour', err);
-          // Vous pourriez ajouter ici un message d'erreur à l'utilisateur
+          this.snackBar.open(err.toString());
         }
       });
     } else {
@@ -102,6 +100,7 @@ export class EditReservationComponent {
   }
 
   onCancel() {
-    this.router.navigate(['/reservations']);
+    const idEvenement = this.reservation.idEvenement;
+    this.router.navigate(['/event/ + idEvenement']);
   }
 }

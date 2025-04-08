@@ -63,10 +63,10 @@ class ReservationsController extends Controller
 
         // Valider les données de la requête
         $validatedData = $request->validate([
-            'idEtudiant' => 'sometimes|required|integer|exists:etudiants,idEtudiant',
-            'idEvenement' => 'sometimes|required|integer|exists:evenements,idEvenement',
-            'idGoodie' => 'sometimes|required|integer|exists:goodies,idGoodie',
-            'quantite' => 'sometimes|required|integer|min:1',
+            'idEtudiant' => 'required|integer|exists:etudiants,idEtudiant',
+            'idEvenement' => 'required|integer|exists:evenements,idEvenement',
+            'dateReservation' => 'required|date',
+            'statut' => 'required|in:Confirmée,En attente,Annulée',
         ]);
 
         // Mettre à jour la réservation
