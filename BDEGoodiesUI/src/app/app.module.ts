@@ -18,6 +18,7 @@ import { AddEvenementComponent } from './pages/add-evenement/add-evenement.compo
 import { AddGoodieComponent } from './pages/add-goodie/add-goodie.component';
 import { EditReservationComponent } from './pages/edit-reservation/edit-reservation.component';
 import { EvenementComponent } from './evenement/evenement.component';
+import { ListEtudiantsComponent } from './pages/list-etudiants/list-etudiants.component';
 
 // Angular Material
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -37,6 +38,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 @NgModule({
   declarations: [
@@ -53,36 +55,38 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     AddEvenementComponent,
     AddGoodieComponent,
     EditReservationComponent,
+    ListEtudiantsComponent,
   ],
-  imports: [
+    imports: [
 
-    BrowserModule,
-    AppRoutingModule,
-    BrowserModule,
-    BrowserAnimationsModule,
-    HttpClientModule,
-    ReactiveFormsModule,
-    FormsModule,
+        BrowserModule,
+        AppRoutingModule,
+        BrowserModule,
+        BrowserAnimationsModule,
+        HttpClientModule,
+        ReactiveFormsModule,
+        FormsModule,
 
-    // Angular Material
-    MatToolbarModule,
-    MatButtonModule,
-    MatIconModule,
-    MatMenuModule,
-    MatCardModule,
-    DragDropModule,
-    MatGridListModule,
-    MatTableModule,
-    MatChipsModule,
-    MatChipListbox,
-    MatSnackBarModule,
-    MatListModule,
-    MatSelectModule,
-    MatInputModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-    MatProgressSpinnerModule,
-  ],
+        // Angular Material
+        MatToolbarModule,
+        MatButtonModule,
+        MatIconModule,
+        MatMenuModule,
+        MatCardModule,
+        DragDropModule,
+        MatGridListModule,
+        MatTableModule,
+        MatChipsModule,
+        MatChipListbox,
+        MatSnackBarModule,
+        MatListModule,
+        MatSelectModule,
+        MatInputModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        MatProgressSpinnerModule,
+        MatPaginatorModule,
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })

@@ -4,8 +4,5 @@ export interface Goodie {
   quantite: number;
   description: string;
   coutUnitaire: number;
-}
-
-export interface GoodieStock extends Goodie {
-  stock_restant: number;
+  stock_restant?: number; // Devenu optionnel
 }

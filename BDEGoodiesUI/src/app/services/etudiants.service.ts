@@ -7,19 +7,24 @@ import { Etudiant } from '../models/etudiant.model';
   providedIn: 'root'
 })
 export class EtudiantsService {
-  // Attributs 
+  // Attributs
   private readonly apiUrl = 'http://localhost:8000/api/etudiants';
-  private readonly http: HttpClient = inject(HttpClient); 
+  private readonly http: HttpClient = inject(HttpClient);
 
   // Constructeur
   constructor() { }
 
   // Méthodes
-  getEtudiants():Observable<Etudiant[]>{ 
+  getEtudiants():Observable<Etudiant[]>{
     return this.http.get<Etudiant[]>(this.apiUrl);
   }
 
   getEtudiantById(id: number):Observable<Etudiant>{
     return this.http.get<Etudiant>(`${this.apiUrl}/${id}`);
+  }
+
+  // Supprimer un étudiant
+  delete(id: number):Observable<Etudiant>{
+    return this.http.delete<Etudiant>(`${this.apiUrl}/${id}`);
   }
 }

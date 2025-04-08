@@ -85,12 +85,19 @@ export class EditReservationComponent {
       // Appel du service pour mettre à jour
       this.reservationService.updateReservation(updatedReservation).subscribe({
         next: () => {
-          // Redirection avec message de succès
-          console.log('Reservation updated successfully.');
+          this.snackBar.open('Réservation mise à jour avec succès', 'Fermer', {
+            duration: 3000,
+            panelClass: ['success-snackbar']
+          });
           this.router.navigate(['/event/' + this.reservation.idEvenement]);
         },
         error: (err) => {
-          this.snackBar.open(err.toString());
+          this.isLoading = false;
+          const errorMessage = err.error?.message || 'Erreur lors de la mise à jour';
+          this.snackBar.open(errorMessage, 'Fermer', {
+            duration: 5000,
+            panelClass: ['error-snackbar']
+          });
         }
       });
     } else {

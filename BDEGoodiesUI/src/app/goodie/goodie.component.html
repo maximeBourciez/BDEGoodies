@@ -1,45 +1,54 @@
 <mat-card class="goodie-card" *ngIf="goodie">
   <div class="loader-overlay" *ngIf="isLoading">
     <mat-spinner diameter="50" color="accent"></mat-spinner>
-    <p class="loader-text">Chargement en cours...</p>
   </div>
 
   <mat-card-header>
-    <mat-card-title>{{ goodie.nom }}</mat-card-title>
+    <mat-card-title class="goodie-title">{{ goodie.nom }}</mat-card-title>
+    <mat-card-subtitle class="goodie-price">
+      {{ goodie.coutUnitaire | currency:'EUR':'symbol':'1.2-2' }}
+    </mat-card-subtitle>
   </mat-card-header>
-  <mat-card-content>
-    <p><strong>Description :</strong> {{ goodie.description }}</p>
-    <p><strong>Quantité Disponible :</strong> {{ goodie.quantite }}</p>
 
-    <!-- Afficher les contrôles de stock seulement si ce n'est PAS un GoodieStock -->
-    @if (!isStockGoodie) {
-      <div class="stock-controls">
-        <button mat-icon-button color="primary" (click)="incrementStock()" matTooltip="Ajouter une unité">
-          <mat-icon>add</mat-icon>
-        </button>
-        <button mat-icon-button color="warn" (click)="decrementStock()"
-                [disabled]="goodie.quantite <= 0" matTooltip="Retirer une unité">
-          <mat-icon>remove</mat-icon>
-        </button>
+  <mat-divider></mat-divider>
+
+  <mat-card-content class="goodie-content">
+    <p class="goodie-description">
+      <mat-icon class="description-icon">description</mat-icon>
+      {{ goodie.description }}
+    </p>
+
+    <div class="stock-info">
+      <div class="stock-item">
+        <mat-icon>inventory_2</mat-icon>
+        <span>Quantité: {{ goodie.quantite }}</span>
       </div>
 
-      <p><strong>Coût unitaire :</strong> {{ goodie.coutUnitaire }} €</p>
-    }@else{
-      <div class="stock-controls">
-
+      <div class="stock-item" *ngIf="hasStockInfo">
+        <mat-icon>store</mat-icon>
+        <span>Stock restant: {{ goodie.stock_restant }}</span>
       </div>
+    </div>
 
-      <p><strong>Coût unitaire :</strong> {{ goodie.coutUnitaire }} €</p>
-    }
+    <div class="quantity-controls">
+      <button mat-mini-fab color="primary" (click)="decrementQuantity()"
+              [disabled]="goodie.quantite <= 0">
+        <mat-icon>remove</mat-icon>
+      </button>
+      <span class="quantity-value">{{ goodie.quantite }}</span>
+      <button mat-mini-fab color="primary" (click)="incrementQuantity()">
+        <mat-icon>add</mat-icon>
+      </button>
+    </div>
   </mat-card-content>
 
-  <!-- Afficher le bouton d'enregistrement seulement si ce n'est PAS un GoodieStock -->
-  @if (!isStockGoodie) {
-    <mat-card-actions>
-      <button mat-raised-button color="primary" (click)="saveStock()">
-        <mat-icon>save</mat-icon>
-        Enregistrer les modifications
-      </button>
-    </mat-card-actions>
-  }
+  <mat-divider></mat-divider>
+
+  <mat-card-actions class="actions">
+    <button mat-raised-button color="primary" (click)="saveChanges()"
+            [disabled]="isLoading">
+      <mat-icon>save</mat-icon>
+      Enregistrer
+    </button>
+  </mat-card-actions>
 </mat-card>

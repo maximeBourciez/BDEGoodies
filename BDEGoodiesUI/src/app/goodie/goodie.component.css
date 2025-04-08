@@ -1,8 +1,9 @@
 .goodie-card {
-  max-width: 400px;
+  width: 350px;
   margin: 16px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   border: 1px solid #ddd;
+  text-align: center;
 }
 .goodie-card:hover {
   transform: translateY(-5px);

@@ -7,12 +7,21 @@
       </button>
     </div>
 
-    <mat-grid-list cols="3" rowHeight="1:1" gutterSize="16px">
-        @for (goodie of goodies; track goodie.idGoodie) {
-            <mat-grid-tile>
-                <app-goodie [goodie]="goodie"></app-goodie>
-            </mat-grid-tile>
-        }
+  @if(isLoading){
+    <div class="loader-overlay" *ngIf="isLoading">
+      <mat-spinner diameter="50" color="accent"></mat-spinner>
+      <p class="loader-text">Chargement en cours...</p>
+    </div>
+  }@else{
+    <mat-grid-list [cols]="gridCols" rowHeight="1:1" gutterSize="20px">
+      @for (goodie of goodies; track goodie.idGoodie) {
+        <mat-grid-tile>
+          <app-goodie [goodie]="goodie"></app-goodie>
+        </mat-grid-tile>
+      }
 
     </mat-grid-list>
+  }
+
+
 </div>

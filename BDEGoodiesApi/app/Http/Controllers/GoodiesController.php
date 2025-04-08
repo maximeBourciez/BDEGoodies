@@ -12,7 +12,13 @@ class GoodiesController extends Controller
      */
     public function index()
     {
-        return response()->json(Goodie::all());
+        $goodies = Goodie::select('goodies.idGoodie', 'goodies.nom', 'goodies.quantite', 'goodies.description', 'goodies.coutUnitaire')
+            ->leftJoin('reservation_goodies', 'goodies.idGoodie', '=', 'reservation_goodies.idGoodie')
+            ->selectRaw('goodies.quantite - COALESCE(SUM(reservation_goodies.quantite), 0) AS stock_restant')
+            ->groupBy('goodies.idGoodie', 'goodies.nom', 'goodies.quantite')
+            ->get();
+
+        return response()->json($goodies);
     }
 
     /**
@@ -21,7 +27,7 @@ class GoodiesController extends Controller
     public function show($id)
     {
         $goodie = Goodie::find($id);
-        
+
         if (!$goodie) {
             return response()->json(['message' => 'Goodie non trouvé'], 404);
         }
@@ -42,7 +48,7 @@ class GoodiesController extends Controller
         ]);
 
         $goodie = Goodie::create($validated);
-        
+
         return response()->json($goodie, 201);
     }
 
@@ -52,7 +58,7 @@ class GoodiesController extends Controller
     public function update(Request $request, $id)
     {
         $goodie = Goodie::find($id);
-        
+
         if (!$goodie) {
             return response()->json(['message' => 'Goodie non trouvé'], 404);
         }
@@ -63,7 +69,7 @@ class GoodiesController extends Controller
         ]);
 
         $goodie->update($validated);
-        
+
         return response()->json($goodie);
     }
 
@@ -73,13 +79,13 @@ class GoodiesController extends Controller
     public function destroy($id)
     {
         $goodie = Goodie::find($id);
-        
+
         if (!$goodie) {
             return response()->json(['message' => 'Goodie non trouvé'], 404);
         }
 
         $goodie->delete();
-        
+
         return response()->json(['message' => 'Goodie supprimé']);
     }
 
@@ -88,7 +94,7 @@ class GoodiesController extends Controller
      */
     public function getPetitsStocks()
     {
-        $petitsStocks = Goodie::select('goodies.idGoodie', 'goodies.nom', 'goodies.quantite as quantite_goodie')
+        $petitsStocks = Goodie::select('goodies.idGoodie', 'goodies.nom', 'goodies.quantite', 'goodies.description', 'goodies.coutUnitaire')
             ->leftJoin('reservation_goodies', 'goodies.idGoodie', '=', 'reservation_goodies.idGoodie')
             ->selectRaw('goodies.quantite - COALESCE(SUM(reservation_goodies.quantite), 0) AS stock_restant')
             ->groupBy('goodies.idGoodie', 'goodies.nom', 'goodies.quantite')

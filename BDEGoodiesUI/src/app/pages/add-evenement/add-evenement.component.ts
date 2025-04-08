@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Evenement } from '../../models/evenement.model';
 import { EvenementsService } from '../../services/evenements.service';
 import { Router } from '@angular/router';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-add-evenement',
@@ -12,11 +13,14 @@ import { Router } from '@angular/router';
 })
 export class AddEvenementComponent {
   // Attributs
+  eventForm!: FormGroup;
+  minDate: Date;
+
+  // Injections de dépendances
   private readonly fb: FormBuilder = inject(FormBuilder);
   private readonly eventService: EvenementsService = inject(EvenementsService);
   private readonly router: Router = inject(Router);
-  eventForm!: FormGroup;
-  minDate: Date;
+  private readonly snackBar: MatSnackBar = inject(MatSnackBar);
 
   // Constructeur
   constructor() {
@@ -66,14 +70,21 @@ export class AddEvenementComponent {
       );
 
 
-      // Envoie à l'api
+      // Envoi à l'api
       this.eventService.createEvent(newEvent).subscribe({
         next: (response) => {
-
+          this.snackBar.open('Évènement créé avec succès', 'Fermer', {
+            duration: 3000,
+            panelClass: ['success-snackbar']
+          });
           this.router.navigate(['/events']);
         },
         error: (err) => {
-          console.error('Erreur', err);
+          const errorMessage = err.error?.message || 'Erreur lors de la création de l\'évènement';
+          this.snackBar.open(errorMessage, 'Fermer', {
+            duration: 5000,
+            panelClass: ['error-snackbar']
+          });
         }
       });
     }

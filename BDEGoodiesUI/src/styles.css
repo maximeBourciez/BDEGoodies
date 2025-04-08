@@ -70,4 +70,39 @@ mat-button:hover {
   margin-right: 8px;
 }
 
+/* SnackBar styles globaux */
+.success-snackbar {
+  background-color: #4caf50 !important;
+  color: white !important;
+}
+.success-snackbar .mat-simple-snackbar-action {
+  color: white !important;
+}
+.success-snackbar .mat-simple-snackbar-action:hover {
+  color: white !important;
+  background-color: #4caf50 !important;
+}
+
+.error-snackbar {
+  background-color: #f44336 !important;
+  color: white !important;
+}
+.error-snackbar .mat-simple-snackbar-action {
+  color: white !important;
+}
+
+.warning-snackbar {
+  background-color: #ff9800 !important;
+  color: white !important;
+}
+.warning-snackbar .mat-simple-snackbar-action {
+  color: white !important;
+}
+
+/* Positionnement global */
+.mat-snack-bar-container {
+  margin-top: 70px !important; /* Ajustez selon votre header */
+  max-width: 80vw !important;
+}
+
 /*# sourceMappingURL=styles.css.map */

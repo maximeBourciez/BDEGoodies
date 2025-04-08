@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { Goodie, GoodieStock} from '../models/goodie.model';
+import { Goodie } from '../models/goodie.model';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -30,6 +30,6 @@ export class GoodiesService {
 
   // Récupérer les petits stocks
   getPetitsStocks(){
-    return this.http.get<GoodieStock[]>('http://localhost:8000/api/petits-stocks');
+    return this.http.get<Goodie[]>('http://localhost:8000/api/petits-stocks');
   }
 }

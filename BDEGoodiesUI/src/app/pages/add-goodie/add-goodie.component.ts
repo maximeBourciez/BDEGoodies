@@ -6,6 +6,7 @@ import {GoodieReservation} from '../../models/goodieReservation.model';
 import {Router} from '@angular/router';
 import {GoodiesService} from '../../services/goodies.service';
 import {Goodie} from '../../models/goodie.model';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 
 @Component({
@@ -16,18 +17,20 @@ import {Goodie} from '../../models/goodie.model';
 })
 export class AddGoodieComponent{
 
-  // Attributes
+  // Attributs
   form!: FormGroup;
+
+  // Injections de dépendances
   private readonly fb: FormBuilder = inject(FormBuilder);
   private readonly router: Router = inject(Router);
   private readonly goodieService : GoodiesService = inject(GoodiesService);
+  private readonly snackbar: MatSnackBar = inject(MatSnackBar);
 
   ngOnInit(): void {
     this.initForm();
   }
 
-
-
+  // Méthode d'initialisation du form
   private initForm(): void {
     this.form = this.fb.group({
       nom: ['', Validators.required],
@@ -37,6 +40,7 @@ export class AddGoodieComponent{
     });
   }
 
+  // Traitement du formulaire
   onSubmit(): void {
     if (this.form.valid) {
       // Création d'un nouvel objet goodie avec les valeurs du formulaire
@@ -51,16 +55,23 @@ export class AddGoodieComponent{
       // Sauvegarde
       this.goodieService.createGoodie(goodie).subscribe({
         next: (response) => {
-          // Rediriger et rafraîchir
+          this.snackbar.open('Goodie créé avec succès', 'Fermer',{
+            duration: 3000,
+            panelClass: ['success-snackbar'],
+          })
           this.router.navigate(['/goodies'])
         },
         error: (err) => {
-          console.error('Erreur lors de l\'ajout du goodie', err);
+          const errorMessage = err.error?.message;
+          this.snackbar.open(errorMessage, 'Fermer',{
+            duration: 3000,
+            panelClass: ['error-snackbar'],
+          })
+          this.router.navigate(['/goodies']);
         }
       });
 
-      // Redirection après sauvegarde
-      this.router.navigate(['/goodies']);
+
     }
   }
 }

@@ -1,0 +1,77 @@
+<div class="container">
+  <div class="header">
+    <h1>Liste des étudiants</h1>
+
+    <div class="actions">
+      <!-- Barre de recherche -->
+      <mat-form-field appearance="outline">
+        <mat-label>Rechercher</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Filtrer...">
+        <mat-icon matSuffix>search</mat-icon>
+      </mat-form-field>
+
+      <!-- Bouton d'ajout -->
+      <button mat-raised-button color="primary" routerLink="/etudiants/add">
+        <mat-icon>person_add</mat-icon>
+        Ajouter un étudiant
+      </button>
+    </div>
+  </div>
+
+  <!-- Tableau -->
+  <div class="mat-elevation-z8">
+    <mat-table [dataSource]="dataSource" matSort>
+      <!-- Colonne ID -->
+      <ng-container matColumnDef="idEtudiant">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
+        <mat-cell *matCellDef="let row">{{row.idEtudiant}}</mat-cell>
+      </ng-container>
+
+      <!-- Colonne Nom -->
+      <ng-container matColumnDef="nom">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Nom</mat-header-cell>
+        <mat-cell *matCellDef="let row">{{row.nom}}</mat-cell>
+      </ng-container>
+
+      <!-- Colonne Email -->
+      <ng-container matColumnDef="email">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Email</mat-header-cell>
+        <mat-cell *matCellDef="let row">{{row.mail}}</mat-cell>
+      </ng-container>
+
+      <!-- Colonne Téléphone -->
+      <ng-container matColumnDef="telephone">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Téléphone</mat-header-cell>
+        <mat-cell *matCellDef="let row">{{row.telephone}}</mat-cell>
+      </ng-container>
+
+      <!-- Colonne Actions -->
+      <ng-container matColumnDef="actions">
+        <mat-header-cell *matHeaderCellDef>Actions</mat-header-cell>
+        <mat-cell *matCellDef="let row">
+          <button mat-icon-button color="primary" [routerLink]="['/etudiants/edit', row.idEtudiant]">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" (click)="deleteStudent(row.idEtudiant)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </mat-cell>
+      </ng-container>
+
+      <!-- En-tête -->
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <!-- Lignes -->
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+      <!-- Message quand aucun résultat -->
+      <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell" [colSpan]="displayedColumns.length">
+          Aucun étudiant trouvé
+        </td>
+      </tr>
+    </mat-table>
+
+    <!-- Pagination -->
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+  </div>
+</div>
