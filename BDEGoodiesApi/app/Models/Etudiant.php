@@ -45,4 +45,13 @@ class Etudiant extends Model
     {
         return $this->hasMany(Reservation::class, 'idEtudiant');
     }
+
+    public static function boot()
+    {
+        parent::boot();
+        
+        static::deleting(function($etudiant) {
+            $etudiant->reservations()->delete();
+        });
+    }
 }

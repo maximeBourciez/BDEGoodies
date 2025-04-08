@@ -5,6 +5,7 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
 import {MatSort} from '@angular/material/sort';
+import { Router} from '@angular/router';
 
 @Component({
   selector: 'app-list-etudiants',
@@ -26,6 +27,7 @@ export class ListEtudiantsComponent {
   // Injections de dépendances
   private readonly etudiantsService: EtudiantsService = inject(EtudiantsService);
   private readonly snackbar: MatSnackBar = inject(MatSnackBar);
+  private readonly router: Router = inject(Router);
 
   // Constructeur
   constructor() {}
@@ -68,13 +70,28 @@ export class ListEtudiantsComponent {
 
   // Suppression d'étudiant
   deleteStudent(idEtudiant: number) {
-    this.etudiantsService.delete(idEtudiant).subscribe({
-      next: data => {
-        // Message de succès + redirection
-      },
-      error: err => {
-        // MEssage d'erreur + redirection
-      }
-    })
+    if (confirm('Êtes-vous sûr de vouloir supprimer cet étudiant ?')) {
+      this.etudiantsService.delete(idEtudiant).subscribe({
+        next: () => {
+
+          // Afficher un message de succès
+          this.snackbar.open('Étudiant supprimé avec succès', 'Fermer', {
+            duration: 3000,
+            panelClass: ['success-snackbar']
+          });
+
+          // R2charger
+          this.router.navigate(['/students']);
+        },
+        error: (err) => {
+          // Gestion des erreurs
+          const errorMessage = err.error?.message || 'Erreur lors de la suppression';
+          this.snackbar.open(errorMessage, 'Fermer', {
+            duration: 5000,
+            panelClass: ['error-snackbar']
+          });
+        }
+      });
+    }
   }
 }

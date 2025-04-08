@@ -52,7 +52,10 @@
           <button mat-icon-button color="primary" [routerLink]="['/edit-student/', row.idEtudiant]">
             <mat-icon>edit</mat-icon>
           </button>
-          <button mat-icon-button color="warn" (click)="deleteStudent(row.idEtudiant)">
+          <button mat-icon-button
+                  color="warn"
+                  (click)="deleteStudent(row.idEtudiant)"
+                  matTooltip="Supprimer">
             <mat-icon>delete</mat-icon>
           </button>
         </mat-cell>

@@ -34,6 +34,7 @@ export class ListGoodiesComponent {
     this.goodieService.getGoodies().subscribe({
       next: data => {
         this.goodies = data;
+        this.isLoading = false;
       },
       error: error => {
         console.error('Erreur API:', error);
