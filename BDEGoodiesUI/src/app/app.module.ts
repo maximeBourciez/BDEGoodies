@@ -39,6 +39,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { AddEtudiantComponent } from './pages/add-etudiant/add-etudiant.component';
 
 @NgModule({
   declarations: [
@@ -56,6 +57,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     AddGoodieComponent,
     EditReservationComponent,
     ListEtudiantsComponent,
+    AddEtudiantComponent,
   ],
     imports: [
 

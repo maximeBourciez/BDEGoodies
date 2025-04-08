@@ -27,4 +27,14 @@ export class EtudiantsService {
   delete(id: number):Observable<Etudiant>{
     return this.http.delete<Etudiant>(`${this.apiUrl}/${id}`);
   }
+
+  // Créer un étudiant
+  create(etudiant: Etudiant):Observable<Etudiant>{
+    return this.http.post<Etudiant>(this.apiUrl, etudiant);
+  }
+
+  // Modifier un étudiant
+  update(etudiant: Etudiant):Observable<Etudiant>{
+    return this.http.put<Etudiant>(this.apiUrl + '/' + etudiant.idEtudiant, etudiant);
+  }
 }

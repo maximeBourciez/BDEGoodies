@@ -11,7 +11,7 @@
       </mat-form-field>
 
       <!-- Bouton d'ajout -->
-      <button mat-raised-button color="primary" routerLink="/etudiants/add">
+      <button mat-raised-button color="primary" routerLink="/add-student">
         <mat-icon>person_add</mat-icon>
         Ajouter un étudiant
       </button>
@@ -49,7 +49,7 @@
       <ng-container matColumnDef="actions">
         <mat-header-cell *matHeaderCellDef>Actions</mat-header-cell>
         <mat-cell *matCellDef="let row">
-          <button mat-icon-button color="primary" [routerLink]="['/etudiants/edit', row.idEtudiant]">
+          <button mat-icon-button color="primary" [routerLink]="['/edit-student/', row.idEtudiant]">
             <mat-icon>edit</mat-icon>
           </button>
           <button mat-icon-button color="warn" (click)="deleteStudent(row.idEtudiant)">

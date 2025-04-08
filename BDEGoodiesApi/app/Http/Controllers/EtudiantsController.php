@@ -31,12 +31,11 @@ class EtudiantsController extends Controller
     }
 
     // Méthode pour créer un nouvel étudiant
-    public function create(Request $request){
+    public function store(Request $request){
         // Valider les données de la requête
         $validatedData = $request->validate([
             'nom' => 'required|string|max:255',
-            'prenom' => 'required|string|max:255',
-            'email' => 'required|email|unique:etudiants,email',
+            'mail' => 'required|email|unique:etudiants,email',
             'telephone' => 'required|string|max:15',
         ]);
 
@@ -59,10 +58,9 @@ class EtudiantsController extends Controller
 
         // Valider les données de la requête
         $validatedData = $request->validate([
-            'nom' => 'sometimes|required|string|max:255',
-            'prenom' => 'sometimes|required|string|max:255',
-            'email' => 'sometimes|required|email|unique:etudiants,email,' . $id,
-            'telephone' => 'sometimes|required|string|max:15',
+            'nom' => 'required|string|max:255',
+            'mail' => 'required|email|unique:etudiants,email',
+            'telephone' => 'required|string|max:15',
         ]);
 
         // Mettre à jour l'étudiant

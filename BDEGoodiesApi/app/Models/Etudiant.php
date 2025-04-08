@@ -25,10 +25,7 @@ class Etudiant extends Model
     ];
 
     // Champs à cacher dans les réponses JSON
-    protected $hidden = [
-        'created_at',
-        'updated_at',
-    ];
+    public $timestamps = false;
 
     // Champs à convertir en types natifs
     protected $casts = [

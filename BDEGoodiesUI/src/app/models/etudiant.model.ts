@@ -6,7 +6,6 @@ export class Etudiant{
     nom: string;
     mail: string;
     telephone: string;
-    statut?: StatutReservation;
 
   // Constructeur
     constructor(id: number, nom: string, email: string, telephone: string, annee: number){
