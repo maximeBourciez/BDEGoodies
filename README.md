@@ -66,3 +66,10 @@ ng serve
 3. Accéder au résultat
 
 Se connecter à `localhost:4200`.
+
+## 🧪 Données de test
+
+Les données présentes dans l’application sont générées automatiquement à l’aide des Fakers Laravel lors de l’exécution de la commande :
+```php artisan db:seed```
+
+Cela permet de remplir la base de données avec des soirées, des réservations, et un stock de goodies fictifs pour faciliter les tests et la démonstration de l’application.
